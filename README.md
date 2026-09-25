@@ -1,81 +1,108 @@
-# Policy Communication and Technology Transfer
+# When Universities Rewrite Their Intellectual-Property Policies
 
-This repository is the active research and replication home for the updated paper on university intellectual-property policy communication and technology-transfer outcomes.
+**Policy Revisions, Policy Communication, and University Technology Transfer**
 
-## Research design
+This repository is the active research and replication home for the September 25, 2026 version of the paper on ordinary university IP-policy revisions and technology-transfer outcomes.
 
-The project links a text-based measure of communicative stance in U.S. university IP policies to longitudinal technology-transfer outcomes. The policy measure is inherited from the measurement pipeline in **Paper 1** and is merged to AUTM-style technology-transfer outcomes used in **Paper 2**.
+## Current paper baseline
 
-This repository begins from a cross-repository verification completed on September 25, 2026. The purpose of the new repository is to keep the updated paper, its analysis code, and its verified data lineage together without changing the archived Paper 1 and Paper 2 repositories.
+The authoritative manuscript baseline is the 30-page September 25 PDF supplied by the authors:
 
-## Verified data lineage
+> *When Universities Rewrite Their Intellectual-Property Policies: Policy Revisions, Policy Communication, and University Technology Transfer*
 
-Source repositories:
+A structured record of that version, including its PDF SHA-256 and every headline empirical benchmark, is in [`manuscript/sept25_baseline.md`](manuscript/sept25_baseline.md).
 
-- Paper 1: `krish533/Tech-transfer-1`
-- Paper 2: `krish533/tech-transfer-paper-2`
+The paper's **main design is a stacked revision event study**, not the older annual-PCSI regression. For each documented revision, the revising university is compared with contemporaneous universities that do not revise anywhere in the event window. Revision direction is classified using the Policy Communication Stance Index (PCSI) from the companion measurement paper.
 
-Pinned source commits:
+### Main revision sample
+
+The September 25 baseline uses:
+
+- `|ΔPCSI| > 0.03` as the principal revision threshold;
+- 25 hand-reviewed, documented policy revisions;
+- 6 revisions toward more supportive language;
+- 19 revisions toward more restrictive language;
+- event years 1994–2021;
+- event window `[-4, +5]`, with year `-1` omitted;
+- clean non-revising controls;
+- stack × institution fixed effects;
+- stack × year × research-size-tercile × public/private fixed effects;
+- log research expenditure as a control;
+- institution-clustered standard errors;
+- exact permutation inference over all `C(25, 6) = 177,100` direction assignments for the main sample.
+
+The 25 main events are recorded in [`data/revision_codes_manual.csv`](data/revision_codes_manual.csv).
+
+### Headline result
+
+For log licenses and options executed, the September 25 manuscript reports an average post-revision **upward-minus-downward gap of 0.619 log points** (clustered SE 0.136; exact permutation `p = 0.015`; BH-adjusted `q = 0.075`). Relative to contemporaneous non-revisers, licensing rises after upward revisions and falls after downward revisions. Invention disclosures do not respond systematically.
+
+The interpretation remains deliberately cautious: universities choose whether and how to revise their policies, so the design documents a robust post-revision pattern and where it appears in the technology-transfer pipeline; it does **not** establish a causal effect of policy wording.
+
+## Data lineage
+
+The project combines two audited sources:
+
+- Paper 1 measurement repository: `krish533/Tech-transfer-1`
+- Legacy Paper 2 outcome repository: `krish533/tech-transfer-paper-2`
+
+Pinned provenance commits:
 
 - Paper 1: `25a9472b34334825b6d6c6a334f5b88eb00695b5`
 - Paper 2: `88cf4a1c02540b136adb8beaa35e212625ac755e`
 
-Cross-repository checks established that:
+The September 25 cross-repository audit established that all 2,564 Paper 2 rows carrying PCSI/NLP measures match the Paper 1 panel on standardized institution and calendar year, with zero mismatches in mean PCSI, median PCSI, Tone, Clarity, Legal Load, sentence count, word count, source year, and carry-forward status.
 
-- the Paper 1 canonical panel contains 4,296 institution-year observations for 150 institutions;
-- the Paper 1 primary 1944–2025 panel contains 4,277 observations for 150 institutions;
-- 480 of those primary-panel observations are directly observed policy records;
-- Paper 2 contains 2,564 rows carrying Paper 1 PCSI/NLP measures;
-- all 2,564 rows match Paper 1 on standardized institution and calendar year;
-- there are zero discrepancies in mean PCSI, median PCSI, Tone, Clarity, Legal Load, sentence count, word count, source year, and carry-forward status.
+The core verified analysis dataset is [`data/verified_replication_dataset.csv`](data/verified_replication_dataset.csv):
 
-The independently re-estimated Paper 2 baseline is:
+- 3,507 rows;
+- 46 analysis/provenance columns;
+- SHA-256 `de5377b98c1261c5de9a5b4df21efb86af04bbdce28cb3676ec37c61456fcdf6`.
 
-- lag-1 PCSI coefficient on `ln(1 + new patent applications)`: **0.615866**;
-- institution-clustered standard error: **0.523368**;
-- p-value: **0.240590**;
-- N: **2,115**.
+The frozen original merged Paper 2 input remains in `data/merged_autm.csv` for exact legacy reproduction.
 
-The complete Paper 2 replication output was also regenerated and matched the committed verified output byte-for-byte.
+## Important distinction: current vs legacy code
+
+`code/replication.py` and `code/run_all.py` reproduce the **legacy annual-panel Paper 2 benchmark**. They are retained as provenance and should not be interpreted as the main September 25 design.
+
+The September 25 revision analysis is developed separately in `code/revision_event_study.py` and related scripts. This separation prevents the new revision design from silently overwriting the audited legacy benchmark.
+
+Annual continuous-PCSI models remain supporting evidence in the September 25 paper. They are re-estimated on 149 harmonized institutions and are not the identifying design.
 
 ## Repository structure
 
 ```text
 .
-├── manuscript/                 # active updated-paper draft and paper notes
-├── data/                       # verified analysis data and data documentation
-├── code/                       # analysis and replication code
-├── replication/                # frozen audit reports and provenance material
+├── manuscript/
+│   ├── sept25_baseline.md      # authoritative September 25 specification/results map
+│   ├── main.tex                # editable manuscript source
+│   └── paper2_verified_starting_point.tex  # frozen legacy manuscript
+├── data/
+│   ├── verified_replication_dataset.csv
+│   ├── merged_autm.csv
+│   └── revision_codes_manual.csv           # 25 hand-reviewed main events
+├── code/
+│   ├── revision_event_study.py             # September 25 main design
+│   ├── sept25_diagnostics.py               # data reconciliation checks
+│   ├── replication.py                      # frozen legacy Paper 2 benchmark
+│   └── run_all.py
+├── replication/                # cross-repository audit and frozen provenance
 ├── results/
-│   ├── tables/                 # generated manuscript tables
-│   └── figures/                # generated manuscript figures
-└── .github/workflows/          # automated reproducibility checks
+│   ├── tables/
+│   └── figures/
+└── .github/workflows/          # reproducibility and revision-design checks
 ```
 
-## Data files
+## Reproducibility standard
 
-The core updated-paper dataset is `data/verified_replication_dataset.csv`.
+For the current paper, a result should be described as reproduced only when the repository regenerates the corresponding September 25 table/figure from code and data. If a PDF result depends on hand-reviewed documentary information not present in the legacy annual panel, that coding must be committed explicitly rather than inferred silently.
 
-Expected properties:
+The Paper 1 release reproduces classifier inference, calibration, aggregation, policy-in-force panel construction, and manuscript-facing analyses. It does not reconstruct the original BERT fine-tuning from coder-level pre-adjudication records; that limitation remains part of the provenance statement.
 
-- 3,507 rows;
-- 46 analysis/provenance columns;
-- SHA-256: `de5377b98c1261c5de9a5b4df21efb86af04bbdce28cb3676ec37c61456fcdf6`.
+## Development rule
 
-The original Paper 2 merged input is retained separately when needed for exact reproduction of the legacy Paper 2 analysis.
+Keep three categories separate:
 
-## Reproducibility scope
-
-The released Paper 1 materials reproduce classifier inference, calibration, aggregation, policy-in-force panel construction, and manuscript-facing analyses. They do **not** reconstruct the original BERT fine-tuning from coder-level pre-adjudication records. This limitation should remain explicit in any reproducibility statement for the updated paper.
-
-## Development convention
-
-The updated paper should distinguish clearly between:
-
-1. **verified descriptive/associational results** inherited from the audited data chain;
-2. **new empirical extensions and robustness analyses** developed in this repository; and
-3. **causal designs**, which should only be labeled causal when identification assumptions and diagnostics support that interpretation.
-
-## Status
-
-Repository initialized September 25, 2026. The archived source repositories remain unchanged and serve as provenance records.
+1. **September 25 revision-design results** — current paper;
+2. **legacy annual-panel results** — provenance/supporting evidence;
+3. **causal claims** — only if a future design provides defensible identification beyond the observational revision comparison.
