@@ -1,0 +1,49 @@
+name: Verify empirical benchmark
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'code/**'
+      - 'data/**'
+      - 'replication/**'
+      - 'requirements.txt'
+      - '.github/workflows/replication_check.yml'
+  pull_request:
+    paths:
+      - 'code/**'
+      - 'data/**'
+      - 'replication/**'
+      - 'requirements.txt'
+      - '.github/workflows/replication_check.yml'
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install pinned dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: Verify frozen data hashes
+        shell: bash
+        run: |
+          echo "de5377b98c1261c5de9a5b4df21efb86af04bbdce28cb3676ec37c61456fcdf6  data/verified_replication_dataset.csv" | sha256sum -c -
+          echo "070f10179b34a0730d1f09ea3322d21e8f32e20d3036760df2adfef182aa2d4b  data/merged_autm.csv" | sha256sum -c -
+
+      - name: Re-run verified Paper 2 benchmark
+        run: python code/run_all.py
+
+      - name: Compare complete output with frozen verified log
+        shell: bash
+        run: diff -u replication/paper2_replication_output.txt paper_outputs/logs/replication_output.txt
