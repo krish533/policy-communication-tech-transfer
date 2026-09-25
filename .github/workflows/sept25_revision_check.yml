@@ -6,6 +6,7 @@ on:
     paths:
       - 'code/sept25_diagnostics.py'
       - 'code/revision_event_study.py'
+      - 'code/spec_search.py'
       - 'data/revision_codes_manual.csv'
       - '.github/workflows/sept25_revision_check.yml'
   workflow_dispatch:
@@ -31,3 +32,7 @@ jobs:
       - name: Run revision analysis when available
         if: ${{ hashFiles('code/revision_event_study.py') != '' }}
         run: python code/revision_event_study.py --validate
+
+      - name: Search research-size tercile specification
+        if: ${{ hashFiles('code/spec_search.py') != '' }}
+        run: python code/spec_search.py
