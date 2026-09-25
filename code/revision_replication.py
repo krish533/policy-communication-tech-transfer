@@ -50,12 +50,12 @@ def sufficient_stats(stacks, outcome):
     A = np.zeros((p0, p0)); arhs = np.zeros(p0); C = np.zeros((m, m))
     Bparts = np.zeros((len(stack_ids), p0, m)); cparts = np.zeros((len(stack_ids), m))
     for pos, sid in enumerate(stack_ids):
-        z = q[q.stack.eq(sid)]
-        fe1 = pd.factorize(z.institution.astype(str))[0]
-        fe2 = pd.factorize(z.year.astype(str) + "|" + z.size_tercile.astype(str) + "|" + z.private.astype(str))[0]
+        z = q[q["stack"].eq(sid)]
+        fe1 = pd.factorize(z["institution"].astype(str))[0]
+        fe2 = pd.factorize(z["year"].astype(str) + "|" + z["size_tercile"].astype(str) + "|" + z["private"].astype(str))[0]
         y = z[outcome].to_numpy(float)
         D = z[dcols].to_numpy(float)
-        X0 = np.column_stack([D, z.ln_research_exp.to_numpy(float)])
+        X0 = np.column_stack([D, z["ln_research_exp"].to_numpy(float)])
         rr = core._demean(np.column_stack([y, X0, D]), [fe1, fe2])
         yr = rr[:, 0]; x0 = rr[:, 1:1+p0]; zr = rr[:, 1+p0:]
         A += x0.T @ x0; arhs += x0.T @ yr; C += zr.T @ zr
@@ -75,7 +75,7 @@ def exact_permutation(stacks, events, outcome, batch_size=4000):
     q, dcols, stack_ids, A, arhs, C, Bparts, cparts = sufficient_stats(stacks, outcome)
     if len(stack_ids) != 25:
         raise AssertionError(f"Expected 25 stacks, got {len(stack_ids)}")
-    sign_map = events.set_index("event_id").sign.to_dict()
+    sign_map = events.set_index("event_id")["sign"].to_dict()
     observed_signs = np.array([sign_map[int(s)] for s in stack_ids], dtype=float)
     obs_beta = solve_signs(observed_signs, A, arhs, C, Bparts, cparts)
     m = len(dcols); p0 = A.shape[0]
