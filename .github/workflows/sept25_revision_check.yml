@@ -1,0 +1,33 @@
+name: Validate September 25 revision design
+
+on:
+  push:
+    branches: [sept25-revision-baseline]
+    paths:
+      - 'code/sept25_diagnostics.py'
+      - 'code/revision_event_study.py'
+      - 'data/revision_codes_manual.csv'
+      - '.github/workflows/sept25_revision_check.yml'
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Reconcile September 25 source data
+        run: python code/sept25_diagnostics.py
+
+      - name: Run revision analysis when available
+        if: ${{ hashFiles('code/revision_event_study.py') != '' }}
+        run: python code/revision_event_study.py --validate
