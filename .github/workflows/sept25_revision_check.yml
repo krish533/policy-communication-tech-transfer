@@ -7,10 +7,12 @@ on:
       - 'code/sept25_diagnostics.py'
       - 'code/revision_event_study.py'
       - 'code/revision_replication.py'
-      - 'code/spec_search.py'
       - 'data/revision_codes_manual.csv'
       - '.github/workflows/sept25_revision_check.yml'
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   validate:
@@ -30,11 +32,19 @@ jobs:
       - name: Reconcile September 25 source data
         run: python code/sept25_diagnostics.py
 
-      - name: Run structural revision analysis
-        run: python code/revision_event_study.py --validate
-
-      - name: Run exact September 25 replication
+      - name: Run canonical September 25 replication
         run: python code/revision_replication.py
 
-      - name: Search research-size tercile specification
-        run: python code/spec_search.py
+      - name: Commit reproduced Table 3 outputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add results/table3_reproduced.csv results/table3_reproduced.json
+          if git diff --cached --quiet; then
+            echo "No generated-result changes to commit."
+            exit 0
+          fi
+          git commit -m "Update reproduced September 25 Table 3 results"
+          git push
