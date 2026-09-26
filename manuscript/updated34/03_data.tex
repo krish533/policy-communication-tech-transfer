@@ -1,0 +1,120 @@
+\section{Data}\label{sec:data}
+
+\subsection{Policy documents and PCSI}
+
+The policy data come from the corpus assembled for the companion paper \citep{SharmaPCSI2026}: 519 IP and patent policy
+documents from 150 U.S.\ research universities, dated 1944--2025, forming 481 institution-year document records and 87,160
+sentences. PCSI is the mean sentence-level stance score of a document, where each sentence is scored from restrictive to
+supportive toward inventors; its construction and validation are described in the companion paper. For the annual panel,
+each observed document is treated as the policy in force until the next observed document.
+
+\subsection{Technology-transfer outcomes}
+
+Outcomes come from the AUTM Licensing Activity Survey for 1991--2023. The raw data contain 253 reporting identifiers,
+which we harmonize to 149 institutions. Harmonization matters because 101 institutions report under more than one
+identifier over the period; treating identifiers as institutions splits institution fixed effects and breaks lagged
+variables whenever an identifier changes. All analyses are keyed to the harmonized institution.
+
+The principal outcomes are licenses and options executed, invention disclosures received, new U.S.\ patent applications
+filed, and U.S.\ patents issued, each entered as $\log(1+y)$, together with the filing margin
+\begin{equation}
+F_{it}=\log(1+\text{Applications}_{it})-\log(1+\text{Disclosures}_{it}),
+\end{equation}
+an institution-year analogue of the filing ratio \citep{ChoudhryPonzio2020}. Because the survey does not link individual
+disclosures to applications, $F_{it}$ is not an invention-level conversion probability.
+
+Two outcome series required auditing. In the FY2023 survey the total licenses-and-options field no longer equals licenses
+issued plus options issued, as it does in 99 percent of 2005--2022 records; its 2023 median is 6 against 29 for the
+component sum. We therefore use the component sum for 2023 so that the series keeps one definition (Appendix
+Table~\ref{tab:licfield}). Startups formed are reported only from 1994; in the survey's definition they are companies formed
+specifically to license the institution's technology, and counts are self-reported. The series is zero for 39 percent of
+reporting institutions in 1994--1999 but only 8 percent in 2015--2022, rising to 17 percent in 2023, and between 2 and 17
+institutions enter or leave the set of reporters each year. We found no evidence of miscoded zeros, but the short coverage,
+the change in the zero share, and the known variation in how institutions apply the definition make startups less
+comparable over time than the other outcomes. We therefore report startups only as supplementary evidence
+(Appendix~\ref{app:startups}). Licensing income is not used because its reported units are inconsistent across survey years.
+
+Table~\ref{tab:descriptives} summarizes the linked panel. In the annual panel, 89 percent of PCSI values are carried
+forward from an earlier document, and 30 percent of PCSI variance is within institutions.
+
+\begin{table}[htbp]\centering
+\caption{Linked AUTM--PCSI panel, 1991--2023}\label{tab:descriptives}
+\begin{threeparttable}\small\begin{tabular}{lrrr}\toprule
+Variable & $N$ & Mean & SD \\\midrule
+PCSI (policy in force) & 2,564 & 0.440 & 0.063 \\
+Invention disclosures & 3,507 & 122.4 & 157.7 \\
+New patent applications & 3,507 & 70.6 & 113.7 \\
+U.S. patents issued & 3,351 & 33.0 & 50.3 \\
+Licenses and options executed$^{a}$ & 3,489 & 40.0 & 69.2 \\
+Research expenditure (\$ millions) & 3,507 & 333.0 & 478.1 \\
+Licensing FTEs & 3,401 & 5.5 & 7.3 \\
+Startups formed$^{b}$ & 3,245 & 4.6 & 7.1 \\
+\midrule
+Institution-years & \multicolumn{3}{r}{3,507} \\
+Harmonized institutions (AUTM reporting identifiers) & \multicolumn{3}{r}{149 (253)} \\
+Share of annual PCSI values carried forward & \multicolumn{3}{r}{0.893} \\
+Within-institution share of PCSI variance & \multicolumn{3}{r}{0.30} \\
+\bottomrule\end{tabular}
+\begin{tablenotes}[flushleft]\footnotesize
+\item \textit{Notes:} Institution-year observations. PCSI is the policy-in-force score from the companion measurement paper, carried forward from the most recent observed document. $^{a}$For FY2023 the survey's total field no longer equals licenses plus options issued (as it does in 99\% of 2005--2022 records), so 2023 values use licenses plus options issued. $^{b}$Supplementary outcome, reported from 1994 (Appendix~\ref{app:startups}). Licensing income is not used because its reported units are inconsistent across survey years.
+\end{tablenotes}\end{threeparttable}\end{table}
+
+\subsection{Revisions and the revision sample}
+
+A revision is an observed policy document whose PCSI differs from the institution's previous observed document by more
+than 0.03, approximately one-half of the cross-document standard deviation of the index; Appendix
+Table~\ref{tab:thresholduniverse} shows how the number of detected revisions changes at thresholds from 0.02 to 0.05.
+Revisions are identified from the full sequence of observed policy documents rather than from the AUTM-linked annual
+panel, because documents issued in years without AUTM observations would otherwise be skipped. The corpus contains the
+documents that were collected, not every version ever adopted, so documentary review is essential.
+
+At the 0.03 threshold there are 127 revisions at 78 institutions linked to AUTM outcomes. We separate sample construction
+into a mechanical screen and a documentary screen. The mechanical screen requires that the institution have no other
+threshold revision in the event window and that core AUTM outcomes provide usable observations around the event.
+Sixty-two revisions pass these restrictions. Twenty-five had already been hand-reviewed in the September-25 manuscript.
+We subsequently reviewed the predecessor and successor documents for all 37 remaining mechanically eligible pairs, so
+every revision capable of entering the preferred event-study sample is now subject to the same documentary standard.
+
+Each pair is classified on two dimensions. \emph{Comparability} asks whether the two documents are the same governing IP
+or patent policy (C), partially comparable (P: for example, an excerpt compared with a full policy or a campus policy
+compared with a governing-board policy), or not comparable (N). \emph{Timing} asks whether the revision can be dated.
+Tier A requires a stated adoption or revision date with no documented intervening version, or documents no more than two
+years apart; tier B has a stated adoption or effective date but no revision history; tier C includes pairs for which
+intervening versions are documented or no usable revision date can be established. The event year is the documented
+adoption or revision year rather than the filename year whenever those differ.
+
+Of the 37 newly reviewed pairs, nine satisfy C/P comparability and A/B timing; 28 fail at least one documentary
+requirement. Appending those nine to the original hand-reviewed events yields a preferred sample of 34 revisions at 32
+institutions: eight upward and 26 downward. All 34 therefore satisfy the same stated documentary rules. The main
+specification allows an event when an outcome is observed in the event year even if the AUTM series ends immediately
+afterward. Because this matters for late events and sparse reporters, we also define a stricter sample requiring at least
+two treated-institution core-outcome years in event times 0 through $+5$, which guarantees at least one observed calendar
+year after the revision. That rule yields 29 revisions, seven upward and 22 downward. We report it as a uniform sensitivity
+rather than selectively removing late events.
+
+\begin{table}[htbp]\centering
+\caption{Construction of the revision sample}\label{tab:revsample}
+\begin{threeparttable}\small
+\begin{tabular}{p{11.3cm}r}\toprule
+Step & Count \\\midrule
+Observed policy-document records (institution-years) in the companion corpus & 481 \\
+Revisions with $|\Delta\mathrm{PCSI}|>0.03$ at AUTM-linked institutions & 127 \\
+Pass mechanical non-overlap and outcome-support screen & 62 \\
+\quad previously hand-reviewed in September-25 specification & 25 \\
+\quad additional mechanically eligible pairs reviewed in the second pass & 37 \\
+Newly usable C/P pairs with A/B timing from the second pass & 9 \\
+Preferred fully documentary-reviewed sample & 34 \\
+\quad upward / downward & 8 / 26 \\
+\quad distinct revising institutions & 32 \\
+Stricter post-support sensitivity sample & 29 \\
+\quad upward / downward & 7 / 22 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]\footnotesize
+\item \textit{Notes:} Mechanical eligibility is determined without using estimated outcome effects. Documentary usability
+requires C or P comparability and timing tier A or B. The 65 revisions failing the mechanical screen cannot enter the
+preferred stacked event study regardless of documentary classification. The stricter 29-event sample requires at least
+two treated-institution core-outcome panel years in event times 0--5.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
