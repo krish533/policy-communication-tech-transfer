@@ -1,0 +1,45 @@
+\section{Empirical strategy}\label{sec:strategy}
+
+For each documentary-reviewed revision $e$ at institution $i(e)$ with event year $E_e$, we form a stack containing the
+revising institution and institutions with no threshold revision anywhere in the window $[E_e-4,E_e+5]$, observed over
+the same calendar years. Pooling the stacks, we estimate
+\begin{equation}
+Y_{ist}=\sum_{k\neq-1}\delta_k D^k_{ist}
++\sum_{k\neq-1}\theta_k D^k_{ist}S_{e(s)}
++\gamma\log R_{it}+\alpha_{is}+\lambda_{stc(i)}+\varepsilon_{ist},
+\label{eq:stacked}
+\end{equation}
+where $s$ indexes stacks, $D^k_{ist}$ indicates the revising institution $k$ years from its revision, and
+$S_e\in\{-1,+1\}$ equals $+1$ for an upward revision and $-1$ for a downward revision. The
+institution-by-stack effects $\alpha_{is}$ absorb level differences. The stack-by-year effects
+$\lambda_{stc(i)}$ are interacted with research-size tercile and public/private status, and $R_{it}$ is research
+expenditure. Year $-1$ is omitted. The stacked structure uses clean contemporaneous comparisons and avoids the
+contaminated-comparison problems that arise in conventional two-way fixed-effects event studies under staggered timing
+\citep{GoodmanBacon2021,CallawaySantAnna2021,SunAbraham2021,CengizEtAl2019}.
+
+The paths $\delta_k+\theta_k$ and $\delta_k-\theta_k$ describe upward and downward revisions relative to their controls,
+and $2\theta_k$ is the difference between the two. The headline estimand is
+\begin{equation}
+\Delta=\frac{1}{6}\sum_{k=0}^{5}2\theta_k.
+\end{equation}
+This difference-in-differences-in-direction comparison removes changes that accompany revision generally. It does not
+remove changes that systematically accompany \emph{the direction} of revision. If universities that tighten their
+policies are simultaneously reorganizing TTOs or changing budgets in ways that reduce licensing, $\Delta$ may capture
+those changes as well. The identifying comparison therefore requires that, absent direction-specific changes, upward and
+downward revisers would have evolved similarly relative to their clean controls. Pre-revision paths and balance
+diagnostics are informative about this condition but cannot establish it.
+
+Standard errors are clustered by institution. The effective variation in direction comes from 34 events, including only
+eight upward revisions, so we place greater weight on randomization-style permutation inference than on asymptotic
+clustered $p$-values. Holding event dates, stacks, outcomes, and controls fixed, we repeatedly reassign which eight of the
+34 events are labeled upward and recompute $\Delta$. The preferred results use 100,000 random assignments preserving the
+number of upward events; the Monte Carlo standard error of the licensing permutation $p$-value is approximately 0.0006.
+This procedure tests exchangeability of direction labels under the null. Because direction was not randomly assigned,
+exchangeability is an assumption, not a feature of the institutional design. We therefore report pre-revision balance,
+pre-trend tests, leave-one-event-out estimates, and the stricter 29-event sample alongside the permutation results.
+Benjamini--Hochberg $q$-values adjust the five main-outcome permutation tests as a family.
+
+The annual panel remains supporting evidence. We regress each outcome on PCSI measured zero to five years earlier with
+institution and year fixed effects and lagged log research expenditure, log licensing FTEs, and inventor royalty share,
+clustering by institution. Because most annual PCSI values are carried forward and revision timing is less precise in the
+annual representation, these regressions are not treated as the principal design.

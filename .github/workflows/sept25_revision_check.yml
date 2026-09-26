@@ -1,0 +1,98 @@
+name: Validate September 25 revision design
+
+on:
+  push:
+    branches: [sept25-revision-baseline]
+    paths:
+      - 'code/sept25_diagnostics.py'
+      - 'code/revision_event_study.py'
+      - 'code/revision_replication.py'
+      - 'code/all_revision_analysis.py'
+      - 'code/extract_candidate_policy_text.py'
+      - 'code/expanded_manual_revision_analysis.py'
+      - 'code/final_expanded_inference.py'
+      - 'code/expanded34_diagnostics.py'
+      - 'code/expanded34_diagnostics_fixed.py'
+      - 'data/revision_codes_manual.csv'
+      - 'data/revision_codes_rereview37.csv'
+      - 'results/table3_reproduced.csv'
+      - 'results/table3_reproduced.json'
+      - '.github/workflows/sept25_revision_check.yml'
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Reconcile September 25 source data
+        run: python code/sept25_diagnostics.py
+
+      - name: Save committed Table 3 benchmark
+        run: cp results/table3_reproduced.csv /tmp/table3_committed.csv
+
+      - name: Run canonical September 25 replication
+        run: python code/revision_replication.py
+
+      - name: Run all-revision audit and robustness suite
+        run: python code/all_revision_analysis.py
+
+      - name: Extract source text for documentary-review candidates
+        run: python code/extract_candidate_policy_text.py
+
+      - name: Run publication-facing expanded inference
+        run: python code/final_expanded_inference.py
+
+      - name: Build expanded 34-event manuscript diagnostics
+        run: python code/expanded34_diagnostics_fixed.py
+
+      - name: Upload generated all-revision audit outputs
+        uses: actions/upload-artifact@v4
+        with:
+          name: all-revision-audit
+          path: |
+            results/all_127_revision_disposition.csv
+            results/all_revision_analysis_summary.json
+            results/main25_leave_one_out.csv
+            results/main25_equal_event_effects.csv
+            results/threshold_universe_counts.csv
+            results/candidate_policy_sentence_extract.csv
+            results/candidate_policy_sentence_metadata.json
+            results/expanded34_event_list.csv
+            results/strict29_event_list.csv
+            results/expanded_manual_sample_results.csv
+            results/expanded_manual_sample_summary.json
+            results/expanded_event_time_paths.csv
+            results/expanded34_balance.csv
+            results/expanded34_event_level_balance_data.csv
+            results/expanded34_stack_composition.csv
+            results/expanded34_leave_one_out.csv
+            results/expanded34_diagnostics_summary.json
+          if-no-files-found: error
+
+      - name: Confirm canonical estimates are numerically stable
+        run: |
+          python - <<'PY'
+          import pandas as pd, numpy as np
+          old = pd.read_csv('/tmp/table3_committed.csv').set_index('outcome')
+          new = pd.read_csv('results/table3_reproduced.csv').set_index('outcome')
+          assert list(old.index) == list(new.index)
+          for col in ['gap','cluster_se','pre_p','upward','downward']:
+              if not np.allclose(old[col], new[col], rtol=0, atol=1e-10, equal_nan=True):
+                  raise AssertionError(f'{col} changed materially')
+          if not (old['n'].astype(int) == new['n'].astype(int)).all():
+              raise AssertionError('sample sizes changed')
+          if not np.allclose(old['perm_p'], new['perm_p'], rtol=0, atol=1e-4, equal_nan=True):
+              raise AssertionError('permutation p-values changed materially')
+          print('Canonical Table 3 is numerically stable within documented tolerances.')
+          PY
