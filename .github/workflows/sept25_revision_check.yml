@@ -7,9 +7,15 @@ on:
       - 'code/sept25_diagnostics.py'
       - 'code/revision_event_study.py'
       - 'code/revision_replication.py'
+      - 'code/all_revision_analysis.py'
       - 'data/revision_codes_manual.csv'
       - 'results/table3_reproduced.csv'
       - 'results/table3_reproduced.json'
+      - 'results/all_127_revision_disposition.csv'
+      - 'results/all_revision_analysis_summary.json'
+      - 'results/main25_leave_one_out.csv'
+      - 'results/main25_equal_event_effects.csv'
+      - 'results/threshold_universe_counts.csv'
       - '.github/workflows/sept25_revision_check.yml'
   workflow_dispatch:
 
@@ -34,5 +40,8 @@ jobs:
       - name: Run canonical September 25 replication
         run: python code/revision_replication.py
 
-      - name: Confirm committed Table 3 outputs are current
+      - name: Run all-revision audit and robustness suite
+        run: python code/all_revision_analysis.py
+
+      - name: Confirm committed canonical Table 3 outputs are current
         run: git diff --exit-code -- results/table3_reproduced.csv results/table3_reproduced.json
