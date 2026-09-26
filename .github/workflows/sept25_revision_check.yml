@@ -45,3 +45,15 @@ jobs:
 
       - name: Confirm committed canonical Table 3 outputs are current
         run: git diff --exit-code -- results/table3_reproduced.csv results/table3_reproduced.json
+
+      - name: Upload generated all-revision audit outputs
+        uses: actions/upload-artifact@v4
+        with:
+          name: all-revision-audit
+          path: |
+            results/all_127_revision_disposition.csv
+            results/all_revision_analysis_summary.json
+            results/main25_leave_one_out.csv
+            results/main25_equal_event_effects.csv
+            results/threshold_universe_counts.csv
+          if-no-files-found: error
