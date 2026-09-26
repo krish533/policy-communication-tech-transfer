@@ -10,6 +10,7 @@ on:
       - 'code/all_revision_analysis.py'
       - 'code/extract_candidate_policy_text.py'
       - 'code/expanded_manual_revision_analysis.py'
+      - 'code/final_expanded_inference.py'
       - 'code/expanded34_diagnostics.py'
       - 'data/revision_codes_manual.csv'
       - 'data/revision_codes_rereview37.csv'
@@ -48,8 +49,8 @@ jobs:
       - name: Extract source text for documentary-review candidates
         run: python code/extract_candidate_policy_text.py
 
-      - name: Run expanded manually reviewed samples
-        run: python code/expanded_manual_revision_analysis.py
+      - name: Run publication-facing expanded inference
+        run: python code/final_expanded_inference.py
 
       - name: Build expanded 34-event manuscript diagnostics
         run: python code/expanded34_diagnostics.py
