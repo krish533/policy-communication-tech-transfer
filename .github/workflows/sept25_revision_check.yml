@@ -9,7 +9,9 @@ on:
       - 'code/revision_replication.py'
       - 'code/all_revision_analysis.py'
       - 'code/extract_candidate_policy_text.py'
+      - 'code/expanded_manual_revision_analysis.py'
       - 'data/revision_codes_manual.csv'
+      - 'data/revision_codes_rereview37.csv'
       - 'results/table3_reproduced.csv'
       - 'results/table3_reproduced.json'
       - '.github/workflows/sept25_revision_check.yml'
@@ -45,6 +47,9 @@ jobs:
       - name: Extract source text for documentary-review candidates
         run: python code/extract_candidate_policy_text.py
 
+      - name: Run expanded manually reviewed samples
+        run: python code/expanded_manual_revision_analysis.py
+
       - name: Upload generated all-revision audit outputs
         uses: actions/upload-artifact@v4
         with:
@@ -57,6 +62,10 @@ jobs:
             results/threshold_universe_counts.csv
             results/candidate_policy_sentence_extract.csv
             results/candidate_policy_sentence_metadata.json
+            results/expanded34_event_list.csv
+            results/strict29_event_list.csv
+            results/expanded_manual_sample_results.csv
+            results/expanded_manual_sample_summary.json
           if-no-files-found: error
 
       - name: Confirm canonical estimates are numerically stable
@@ -71,8 +80,6 @@ jobs:
                   raise AssertionError(f'{col} changed materially')
           if not (old['n'].astype(int) == new['n'].astype(int)).all():
               raise AssertionError('sample sizes changed')
-          # Exact enumeration can contain machine-precision boundary ties. Require p-values
-          # to reproduce to 1e-4 rather than requiring identical decimal strings.
           if not np.allclose(old['perm_p'], new['perm_p'], rtol=0, atol=1e-4, equal_nan=True):
               raise AssertionError('permutation p-values changed materially')
           print('Canonical Table 3 is numerically stable within documented tolerances.')
