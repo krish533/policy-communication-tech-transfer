@@ -1,0 +1,38 @@
+institution,Institution,prev_year,revision_year,delta_pcsi,direction,document_gap_years,word_count_ratio,length_rule_pass,n_pre_panel_years,n_post_panel_years
+Portland State University,Portland State University,1997.0,2015,-0.3733344086001294,down,18.0,5.136125654450262,False,4,5
+University of Wisconsin Madison,University of Wisconsin-Madison,2008.0,2022,-0.3054528707529762,down,14.0,1.2535046728971964,True,3,1
+Texas A&M University System,Texas A&M University System,2001.0,2006,-0.293190337398171,down,5.0,11.906942392909896,False,3,6
+University of Wisconsin Madison,University of Wisconsin-Madison,2005.0,2008,0.2349518368761905,up,3.0,0.2092909535452322,False,4,2
+Colorado State University,Colorado State University,2000.0,2007,0.1732870421132598,up,7.0,0.5826731408126757,True,4,6
+Baylor College of Medicine,Baylor College of Medicine,1995.0,2001,-0.1626088741887665,down,6.0,50.13333333333333,False,4,6
+New Mexico State University,New Mexico State University,1993.0,2013,-0.1405243632304512,down,20.0,113.49270959902796,False,4,1
+Arizona State University,Arizona State University,2007.0,2018,-0.1335465425894043,down,11.0,1.5875358753587536,True,4,6
+California Institute of Technology,California Institute of Technology,1968.0,1998,0.1259578797203948,up,30.0,1.7223198594024605,True,4,6
+University of Virginia,University of Virginia,2016.0,2021,0.12573661675,up,5.0,2.1353711790393013,False,4,3
+University of Chicago,University of Chicago,2002.0,2018,0.1126655405419581,up,16.0,0.0917495203209489,False,4,4
+Michigan State University,Michigan State University,1998.0,2001,-0.0954484226275758,down,3.0,0.0255912042083313,False,4,6
+Emory University,Emory University,1990.0,2002,-0.0865548820985871,down,12.0,4.690189328743545,False,4,6
+California Institute of Technology,California Institute of Technology,2007.0,2023,-0.0805722955552733,down,16.0,2.400291651476486,False,4,1
+Rutgers the State University of NJ,Rutgers the State University of NJ,2008.0,2013,-0.0804423696293706,down,5.0,4.806016597510373,False,4,6
+University of Illinois at Urbana-Champaign,University of Illinois Urbana Champaign,2006.0,2023,-0.0770559194510941,down,17.0,7.558563861094761,False,3,1
+Thomas Jefferson University,Thomas Jefferson University,1998.0,2000,-0.0718727001912638,down,2.0,0.0471827759963353,False,4,1
+Rice University,Rice University,1999.0,2023,-0.0670630708741242,down,24.0,1.35257518147252,True,4,1
+Ball State University,Ball State University,2008.0,2013,-0.0647016335568739,down,5.0,12.476829268292684,False,1,1
+University of Houston,University of Houston,1997.0,2007,-0.0529782913778409,down,10.0,1.3876701966717095,True,3,6
+University of Pittsburgh,University of Pittsburgh,2005.0,2021,0.0528089026490183,up,16.0,1.8871345029239768,True,4,3
+University of Arkansas Fayetteville,University of Arkansas,1986.0,2001,-0.0501471011436858,down,15.0,1.693926351028216,True,4,5
+Georgia Institute of Technology,Georgia Institute of Technology,1997.0,2002,-0.0500361851414919,down,5.0,31.9301775147929,False,4,6
+University of Akron,University of Akron,2002.0,2015,0.0458094448853322,up,13.0,0.7884092967099305,True,4,6
+University of Kansas,University of Kansas,1998.0,2001,-0.0432203991963732,down,3.0,2.586164298949969,False,4,6
+Yale University,Yale University,1998.0,2023,-0.0414390974969047,down,25.0,1.065500224315837,True,2,1
+Washington State University (WSU),Washington State University,2016.0,2023,0.041025860848549,up,7.0,1.0918186423505571,True,4,1
+University of Houston,University of Houston,2007.0,2015,-0.0373161161605559,down,8.0,5.461433633142546,False,4,6
+University of Washington,University of Washington,2003.0,2015,0.0358778272742735,up,12.0,1.6789356984478936,True,4,5
+Georgia Institute of Technology,Georgia Institute of Technology,2002.0,2014,-0.0352802880666429,down,12.0,0.0323653682220822,False,4,5
+Penn State University,Penn State University,2005.0,2013,0.0352388429252688,up,8.0,2.266279069767442,False,4,6
+University of Rhode Island,University of Rhode Island,1986.0,2013,0.0340900249775257,up,27.0,11.48814229249012,False,2,1
+Princeton University,Princeton University,2001.0,2017,0.0338565325190602,up,16.0,0.3092848180677541,False,4,6
+Virginia Tech (Virginia Polytechnic Institute),Virginia Tech,2008.0,2013,-0.0324489463439283,down,5.0,0.8547486033519553,True,4,4
+Brown University,Brown University,2005.0,2021,-0.0308098093455082,down,16.0,0.8203167667941016,True,4,2
+Iowa State University,Iowa State University,1982.0,2000,-0.0303481294374999,down,18.0,0.2329974811083123,False,4,6
+Brigham Young University,Brigham Young University,1991.0,2019,-0.0301646481292003,down,28.0,0.5222130470685384,True,4,5
