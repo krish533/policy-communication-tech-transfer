@@ -1,0 +1,77 @@
+\section{Introduction}
+
+Universities devote substantial resources to moving research into patents, licenses, and new firms. The rules that govern
+this activity are written into institutional intellectual-property (IP) policies, which specify who owns inventions, what
+must be disclosed, how income is shared, how conflicts of interest are handled, and what inventors can expect from the
+technology-transfer office (TTO). These documents change. Universities revise them in response to legal developments,
+governance priorities, organizational experience, and changes in how they manage commercialization. A recurring question
+for universities and state systems is therefore straightforward: when an institution rewrites its IP policy, what changes
+in the flow of disclosures, patenting, and licensing that follows?
+
+The literature gives little direct guidance. The best-identified evidence concerns large changes in the ownership regime,
+most prominently Norway's abolition of the ``professor's privilege,'' which moved ownership of university inventions from
+researchers to institutions and was followed by a large decline in university-researcher startups and patenting
+\citep{HvideJones2018}. Cross-institution studies relate specific contractual terms, especially inventor royalty shares, to
+commercialization \citep{LachSchankerman2008,ArqueCastellsEtAl2016}, although these relationships weaken when policy data
+are corrected \citep{OuelletteTutt2020}. Work on technology-transfer offices instead emphasizes staffing, routines, and
+relationships \citep{SiegelWaldmanLink2003,MarkmanEtAl2005,DebackereVeugelers2005}. What is missing is systematic evidence
+on the ordinary revisions that universities actually undertake, which rarely change ownership and often alter several
+provisions and the language surrounding them at once.
+
+This paper studies those revisions. It uses the Policy Communication Stance Index (PCSI), developed and validated in a
+companion paper \citep{SharmaPCSI2026}, to characterize whether a revision moves policy language toward a more supportive
+or a more restrictive stance toward inventors. Rather than relying primarily on annual policy-in-force scores, most of
+which are carried forward from older documents, we focus on moments at which one observed policy document replaces
+another. We reconstruct the observed document sequence at each institution, identify changes in PCSI larger than 0.03,
+and use adoption dates and revision histories printed in the documents to date the changes.
+
+A central contribution of the revised analysis is a complete and auditable sample-construction exercise. At the baseline
+threshold, the linked policy histories contain 127 revisions at 78 universities. We first apply outcome-support and
+non-overlap rules that do not use the sign or magnitude of the technology-transfer estimates; 62 revisions remain
+mechanically eligible for an event study. We then manually review the predecessor and successor documents for all 62
+eligible events. Thirty-four revisions meet the paper's documentary criteria: the pair is comparable or partially
+comparable and the revision date is sufficiently documented. The preferred sample therefore contains 34 hand-reviewed
+events at 32 institutions, eight upward and 26 downward. A stricter sensitivity sample requiring at least one observed
+calendar year after the event contains 29 revisions, seven upward and 22 downward.
+
+The design is a stacked event study \citep{CengizEtAl2019,BakerLarckerWang2022}. Each revising university is compared with
+contemporaneous universities that do not revise anywhere in the same event window, with comparisons further saturated by
+research-size tercile and public/private status. The headline estimand is the post-revision difference between upward and
+downward revisions relative to their clean controls. This comparison nets out changes common to policy revision as such,
+but it does not make revision direction random. Universities choose whether and how to revise, so the analysis remains
+observational.
+
+The central finding concerns licensing. In the preferred 34-event sample, the average post-revision difference in log
+licenses and options between upward and downward revisions is 0.495 (clustered SE 0.140). A 100,000-draw permutation test
+that preserves the eight upward labels gives $p=0.032$, and a joint test of the three pre-revision direction coefficients
+gives $p=0.32$. The estimate reflects movement in both directions: upward revisions are followed by a 0.279 log-point
+increase relative to controls, while downward revisions are followed by a 0.216 log-point decline. The stricter 29-event
+sample produces an almost identical licensing gap of 0.499 (SE 0.133; permutation $p=0.026$; pre-trend $p=0.52$).
+
+Other outcomes are less precise. The filing margin and new patent applications move in the same direction as licensing,
+but their permutation tests do not reject zero. Invention disclosures do not rise after upward revisions, and patents
+issued show no systematic differential response. This pattern locates the strongest post-revision change downstream of
+faculty entry into the formal technology-transfer process. At the same time, adjustment for the five outcome tests raises
+the licensing Benjamini--Hochberg $q$-value to 0.159. We therefore treat the licensing result as a robust, outcome-specific
+empirical pattern rather than as a general rejection across the technology-transfer pipeline.
+
+Several checks sharpen that interpretation. Requiring post-event outcome support reduces the sample from 34 to 29 but
+leaves the licensing estimate essentially unchanged. Returning to the original September-25 25-event specification
+produces a larger gap of 0.621 in our current replication, while a much broader 59-event specification that admits
+rule-coded revisions produces a smaller but still positive estimate. Dropping each event from the 34-event sample in turn
+leaves the licensing gap between 0.436 and 0.559. Upward and downward revisions also have nearly identical pre-revision
+licensing trends; the clearest difference remains their starting PCSI, with upward revisions beginning from substantially
+less supportive prior documents.
+
+The paper contributes evidence on a setting between cross-sectional comparisons of individual policy terms and large
+national ownership reforms: ordinary within-university policy revisions. It also contributes a transparent documentary
+workflow for turning archival policy histories into dated empirical events. The limitations are consequential. There are
+only eight upward revisions in the preferred sample; direction is chosen rather than assigned; the exchangeability
+assumption behind permutation inference is substantive rather than design-based; and some policy histories remain
+incomplete. The evidence therefore documents a stable post-revision pattern, not a causal effect of particular words or
+clauses.
+
+Section~\ref{sec:lit} develops the argument from the literature. Section~\ref{sec:data} describes the policy and AUTM data
+and the revision-screening procedure. Section~\ref{sec:strategy} presents the stacked design and inference.
+Section~\ref{sec:results} reports the results and robustness. Section~\ref{sec:discussion} discusses interpretation and
+limitations, and Section~\ref{sec:conclusion} concludes.
