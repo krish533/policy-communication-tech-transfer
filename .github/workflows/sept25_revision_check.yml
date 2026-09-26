@@ -10,6 +10,7 @@ on:
       - 'code/all_revision_analysis.py'
       - 'code/extract_candidate_policy_text.py'
       - 'code/expanded_manual_revision_analysis.py'
+      - 'code/expanded34_diagnostics.py'
       - 'data/revision_codes_manual.csv'
       - 'data/revision_codes_rereview37.csv'
       - 'results/table3_reproduced.csv'
@@ -50,6 +51,9 @@ jobs:
       - name: Run expanded manually reviewed samples
         run: python code/expanded_manual_revision_analysis.py
 
+      - name: Build expanded 34-event manuscript diagnostics
+        run: python code/expanded34_diagnostics.py
+
       - name: Upload generated all-revision audit outputs
         uses: actions/upload-artifact@v4
         with:
@@ -66,6 +70,12 @@ jobs:
             results/strict29_event_list.csv
             results/expanded_manual_sample_results.csv
             results/expanded_manual_sample_summary.json
+            results/expanded_event_time_paths.csv
+            results/expanded34_balance.csv
+            results/expanded34_event_level_balance_data.csv
+            results/expanded34_stack_composition.csv
+            results/expanded34_leave_one_out.csv
+            results/expanded34_diagnostics_summary.json
           if-no-files-found: error
 
       - name: Confirm canonical estimates are numerically stable
