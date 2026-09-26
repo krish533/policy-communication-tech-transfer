@@ -6,57 +6,45 @@ This repository is the active research and replication home for the September 25
 
 ## Current paper baseline
 
-The authoritative manuscript baseline is the 30-page September 25 PDF supplied by the authors:
+The authoritative manuscript baseline is the 30-page September 25 PDF supplied by the authors: *When Universities Rewrite Their Intellectual-Property Policies: Policy Revisions, Policy Communication, and University Technology Transfer*. A structured record of that version is in [`manuscript/sept25_baseline.md`](manuscript/sept25_baseline.md).
 
-> *When Universities Rewrite Their Intellectual-Property Policies: Policy Revisions, Policy Communication, and University Technology Transfer*
+The paper's **main design is a stacked revision event study**, not the older annual-PCSI regression. For each documented revision, the revising university is compared with contemporaneous universities that do not revise anywhere in the event window.
 
-A structured record of that version, including its PDF SHA-256 and headline empirical benchmarks, is in [`manuscript/sept25_baseline.md`](manuscript/sept25_baseline.md).
+## Revision universe, preferred sample, and full audit
 
-The paper's **main design is a stacked revision event study**, not the older annual-PCSI regression. For each documented revision, the revising university is compared with contemporaneous universities that do not revise anywhere in the event window. Revision direction is classified using the Policy Communication Stance Index (PCSI) from the companion measurement paper.
+At the baseline `|ΔPCSI| > 0.03` threshold, the linked policy history contains **127 revisions at 78 institutions: 47 upward and 80 downward**. The preferred event-study sample consists of **25 hand-reviewed revisions: 6 upward and 19 downward** satisfying the manuscript's strict documentary, timing, overlap, and outcome requirements.
 
-### Main revision sample
+The complete revision-by-revision audit is documented in [`replication/all_127_revision_audit.md`](replication/all_127_revision_audit.md). Using the observed successor-document year as a mechanical screening date, 62 of the 127 revisions pass the no-overlap and core-outcome-coverage checks. These consist of the 25 existing main events plus **37 additional non-main documentary-review candidates (12 upward / 25 downward)**. Their review queue is [`data/documentary_review_queue.csv`](data/documentary_review_queue.csv).
 
-The September 25 baseline uses:
+For those 37 candidates, the CI pipeline reproducibly extracts the predecessor and successor policy text from the pinned Paper 1 sentence corpus: **21,068 sentence rows covering 71 document-year keys at 33 institutions**. The extract preserves original filenames and cleaned sentence text, making a new documentary review possible without imputing the missing historical manual labels.
 
-- `|ΔPCSI| > 0.03` as the principal revision threshold;
-- 25 hand-reviewed, documented policy revisions;
-- 6 revisions toward more supportive language and 19 toward more restrictive language;
-- event years 1994–2021;
-- event window `[-4, +5]`, with year `-1` omitted;
-- clean non-revising controls;
-- stack × institution fixed effects;
-- stack × year × research-size-tercile × public/private fixed effects;
-- log research expenditure as a control;
-- institution-clustered standard errors;
-- exact permutation inference over all `C(25, 6) = 177,100` direction assignments for the main sample.
+The recommended empirical hierarchy is therefore:
 
-The 25 main events are recorded in [`data/revision_codes_manual.csv`](data/revision_codes_manual.csv).
+1. **127 revisions** — descriptive universe of meaningful communication changes;
+2. **25 hand-reviewed revisions** — strict preferred event-study sample;
+3. **the manuscript's broader 59-event rule-coded sample** — robustness showing the result is not unique to the 25 events;
+4. **leave-one-out and equal-event weighting** — influence and weighting checks;
+5. **continuous signed ΔPCSI** — appendix diagnostic only, because its stacked pre-trend is not flat.
 
-### Headline manuscript result
+This hierarchy is stronger than subdividing the 25 preferred events into many small treatment categories.
 
-The September 25 PDF reports an average post-revision upward-minus-downward licensing gap of **0.619 log points** (clustered SE 0.136; exact permutation `p = 0.015`; BH-adjusted `q = 0.075`). Relative to contemporaneous non-revisers, licensing rises after upward revisions and falls after downward revisions, while invention disclosures do not respond systematically.
+## Main revision specification
 
-The interpretation remains deliberately cautious: universities choose whether and how to revise their policies, so the design documents a robust post-revision pattern and where it appears in the technology-transfer pipeline; it does **not** establish a causal effect of policy wording.
+The September 25 baseline uses an event window `[-4,+5]` with year `-1` omitted, clean non-revising controls, stack × institution fixed effects, stack × year × research-size-tercile × public/private fixed effects, log research expenditure, institution-clustered standard errors, and exact permutation inference over all `C(25,6)=177,100` direction assignments. The 25 main events are recorded in [`data/revision_codes_manual.csv`](data/revision_codes_manual.csv).
 
-## Independent reconstruction status
+## Headline result and influence checks
 
-The repository now independently reconstructs the September 25 design from the audited AUTM merge, the pinned Paper 1 policy history, and the 25 hand-reviewed Appendix A1 events.
+The September 25 PDF reports an average post-revision upward-minus-downward licensing gap of **0.619 log points** (clustered SE 0.136; exact permutation `p=0.015`; BH-adjusted `q=0.075`). The independent reconstruction is **0.6213 (SE 0.1360; exact permutation p=0.00946)**. The remaining small PDF-versus-reconstruction discrepancy is documented in [`replication/sept25_reconciliation.md`](replication/sept25_reconciliation.md) rather than tuned away.
 
-Structural quantities reproduce exactly: **3,507 institution-years, 149 harmonized institutions, 127 threshold revisions at 78 institutions, 25 main events (6/19), all 25 document transitions, and every Table 3 regression sample size**. The FY2023 licensing-series correction also reproduces exactly.
+The all-revision audit adds two useful influence checks. Dropping any one of the 25 preferred events leaves the reconstructed licensing gap between **0.5565 and 0.6928**. Giving each event equal weight yields an upward-minus-downward gap of **0.5641**, with exact permutation `p=0.00453`. Thus the licensing pattern is not generated by one event or by unequal stack sizes.
 
-The independently regenerated Table 3 is extremely close but not byte-for-byte identical to the PDF. For licensing it gives **0.6213 (SE 0.1360; exact permutation p = 0.00946)** versus the PDF's **0.619 (SE 0.136; p = 0.015)**. The repository therefore preserves both the PDF targets and the regenerated values rather than silently replacing either one. See [`replication/sept25_reconciliation.md`](replication/sept25_reconciliation.md) and [`results/table3_reproduced.csv`](results/table3_reproduced.csv).
+A continuous signed-ΔPCSI model is retained only as a diagnostic. Its post-revision slope is positive, but the stacked version has a joint pre-trend `p≈0.026`, so it should not be interpreted as stronger identification evidence.
+
+The paper remains observational: universities choose whether and how to revise their policies. The design documents post-revision patterns and where they appear in the technology-transfer pipeline; it does **not** establish a causal effect of policy wording.
 
 ## Data lineage
 
-The project combines two audited sources:
-
-- Paper 1 measurement repository: `krish533/Tech-transfer-1`
-- Legacy Paper 2 outcome repository: `krish533/tech-transfer-paper-2`
-
-Pinned provenance commits:
-
-- Paper 1: `25a9472b34334825b6d6c6a334f5b88eb00695b5`
-- Paper 2: `88cf4a1c02540b136adb8beaa35e212625ac755e`
+The project combines the pinned Paper 1 measurement repository `krish533/Tech-transfer-1` at commit `25a9472b34334825b6d6c6a334f5b88eb00695b5` and the legacy Paper 2 outcome repository `krish533/tech-transfer-paper-2` at commit `88cf4a1c02540b136adb8beaa35e212625ac755e`.
 
 The cross-repository audit established that all 2,564 rows carrying PCSI/NLP measures match the Paper 1 panel on the policy-link key, with zero mismatches in mean PCSI, median PCSI, Tone, Clarity, Legal Load, sentence count, word count, source year, and carry-forward status.
 
@@ -64,47 +52,46 @@ The legacy verified dataset remains [`data/verified_replication_dataset.csv`](da
 
 ## Current versus legacy code
 
-- `code/revision_replication.py` — **canonical September 25 replication entry point**, including exact 177,100-assignment permutation inference.
+- `code/revision_replication.py` — canonical September 25 replication and exact assignment inference.
 - `code/revision_event_study.py` — lower-level panel, stacking, fixed-effect, and clustered-inference functions.
+- `code/all_revision_analysis.py` — full 127-revision audit, leave-one-out, equal-event weighting, continuous-magnitude diagnostics, and threshold counts.
+- `code/extract_candidate_policy_text.py` — reproducible text extraction for the 37 documentary-review candidates.
 - `code/sept25_diagnostics.py` — lineage and sample-construction audit.
-- `code/spec_search.py` — retained development diagnostic; not production CI.
-- `code/replication.py` and `code/run_all.py` — frozen **legacy annual-panel Paper 2** benchmark programs.
+- `code/replication.py` and `code/run_all.py` — frozen legacy annual-panel Paper 2 benchmark programs.
 
-Annual continuous-PCSI models remain supporting evidence in the September 25 paper; they are not the main design.
+Annual continuous-PCSI models remain supporting evidence; they are not the main design.
 
 ## Repository structure
 
 ```text
 .
 ├── manuscript/
-│   ├── sept25_baseline.md       # authoritative September 25 specification/results map
-│   ├── main.tex                 # older editable LaTeX source; not yet line-for-line Sept. 25
-│   └── paper2_verified_starting_point.tex  # frozen legacy manuscript
+│   ├── sept25_baseline.md
+│   ├── main.tex
+│   └── paper2_verified_starting_point.tex
 ├── data/
 │   ├── verified_replication_dataset.csv
 │   ├── merged_autm.csv
-│   └── revision_codes_manual.csv           # 25 hand-reviewed main events
+│   ├── revision_codes_manual.csv
+│   └── documentary_review_queue.csv
 ├── code/
-│   ├── revision_replication.py             # canonical September 25 replication
-│   ├── revision_event_study.py             # lower-level revision-design functions
-│   ├── sept25_diagnostics.py               # reconciliation checks
-│   ├── spec_search.py                      # development diagnostic
-│   ├── replication.py                      # frozen legacy Paper 2 benchmark
+│   ├── revision_replication.py
+│   ├── revision_event_study.py
+│   ├── all_revision_analysis.py
+│   ├── extract_candidate_policy_text.py
+│   ├── sept25_diagnostics.py
+│   ├── replication.py
 │   └── run_all.py
 ├── replication/
 │   ├── sept25_reconciliation.md
-│   └── cross-repository provenance files
+│   └── all_127_revision_audit.md
 ├── results/
-│   ├── table3_reproduced.csv
-│   ├── table3_reproduced.json
-│   ├── tables/
-│   └── figures/
-└── .github/workflows/           # reproducibility checks
+└── .github/workflows/
 ```
 
 ## Reproducibility standard
 
-A result is described as reproduced only when the repository regenerates it from code and data. If a PDF result depends on hand-reviewed documentary information not present in the legacy panel, that coding must be committed explicitly rather than inferred silently. Any remaining difference between the PDF and regenerated values is documented rather than tuned away.
+A result is described as reproduced only when the repository regenerates it from code and data. If a manuscript result depends on hand-reviewed documentary information not preserved row-by-row in the current public files, that information is not silently inferred as fact. The large 37-candidate sentence extract is generated in CI and retained as a workflow artifact rather than committed to Git history.
 
 The Paper 1 release reproduces classifier inference, calibration, aggregation, policy-in-force panel construction, and manuscript-facing analyses. It does not reconstruct the original BERT fine-tuning from coder-level pre-adjudication records; that limitation remains part of the provenance statement.
 
