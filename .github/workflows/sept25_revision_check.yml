@@ -12,6 +12,7 @@ on:
       - 'code/expanded_manual_revision_analysis.py'
       - 'code/final_expanded_inference.py'
       - 'code/expanded34_diagnostics.py'
+      - 'code/expanded34_diagnostics_fixed.py'
       - 'data/revision_codes_manual.csv'
       - 'data/revision_codes_rereview37.csv'
       - 'results/table3_reproduced.csv'
@@ -53,7 +54,7 @@ jobs:
         run: python code/final_expanded_inference.py
 
       - name: Build expanded 34-event manuscript diagnostics
-        run: python code/expanded34_diagnostics.py
+        run: python code/expanded34_diagnostics_fixed.py
 
       - name: Upload generated all-revision audit outputs
         uses: actions/upload-artifact@v4
