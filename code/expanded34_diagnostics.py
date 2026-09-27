@@ -125,7 +125,6 @@ def event_balance(panel, raw, events, draws=50000, seed=20260926):
         "comparable_C": "Comparable document pair",
     }
     rng = np.random.default_rng(seed)
-    n = len(ev); n_up = int((ev.sign > 0).sum())
     out = []
     for c, label in labels.items():
         vals = pd.to_numeric(ev[c], errors="coerce").to_numpy(float)
@@ -158,9 +157,6 @@ def stack_composition(stacks, events):
     em = events.set_index("event_id")
     for sid, s in stacks.groupby("stack", observed=True):
         e = em.loc[int(sid)]
-        treated = s[s["treated"].eq(1)]
-        controls = s[s["treated"].eq(0)]
-        # manuscript-facing licensing stack composition
         use = s[s["ln_licenses"].notna() & s["ln_research_exp"].notna()]
         tuse = use[use["treated"].eq(1)]
         cuse = use[use["treated"].eq(0)]
@@ -204,7 +200,7 @@ def main():
     e34, e29 = exp.load_expanded_events(raw)
 
     p34, s34 = event_paths(panel, universe, e34, "expanded34")
-    p29, s29 = event_paths(panel, universe, e29, "strict29")
+    p29, _ = event_paths(panel, universe, e29, "strict29")
     pd.concat([p34, p29], ignore_index=True).to_csv(
         RESULTS / "expanded_event_time_paths.csv", index=False)
 
@@ -225,9 +221,9 @@ def main():
     loo.to_csv(RESULTS / "expanded34_leave_one_out.csv", index=False)
 
     summary = {
-        "expanded34_bh_q": res[res.sample.eq("expanded34")]
+        "expanded34_bh_q": res[res["sample"].eq("expanded34")]
             .set_index("outcome")["bh_q"].to_dict(),
-        "strict29_bh_q": res[res.sample.eq("strict29")]
+        "strict29_bh_q": res[res["sample"].eq("strict29")]
             .set_index("outcome")["bh_q"].to_dict(),
         "expanded34_leave_one_out": loo_summary,
         "balance_draws": 50000,
