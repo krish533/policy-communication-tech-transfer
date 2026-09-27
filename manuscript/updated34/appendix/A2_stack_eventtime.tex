@@ -1,0 +1,75 @@
+\section{Stack composition and event-time estimates}\label{app:stacks}
+
+{\scriptsize
+\begin{longtable}{p{5.8cm}rcrrrr}
+\caption{Composition of the preferred licensing stacks}\label{tab:stacks}\\
+\toprule
+Revising institution & Year & Dir. & Window & Treated obs. & Controls & Obs. \\\midrule
+\endfirsthead
+\toprule
+Revising institution & Year & Dir. & Window & Treated obs. & Controls & Obs. \\\midrule
+\endhead
+University of South Carolina & 2005 & Up & 2001--2010 & 8 & 110 & 912 \\
+Stevens Institute of Technology & 2014 & Up & 2010--2019 & 6 & 93 & 798 \\
+Albert Einstein/Yeshiva & 2015 & Up & 2011--2020 & 10 & 91 & 784 \\
+University of Minnesota & 2015 & Up & 2011--2020 & 10 & 91 & 784 \\
+Utah State University & 2016 & Up & 2012--2021 & 7 & 87 & 743 \\
+Boston University & 2017 & Up & 2013--2022 & 10 & 85 & 731 \\
+University of Pittsburgh & 2021 & Up & 2017--2026 & 7 & 88 & 518 \\
+Washington State University (WSU) & 2023 & Up & 2019--2028 & 5 & 86 & 386 \\
+Stanford University & 1994 & Down & 1990--1999 & 9 & 134 & 855 \\
+University of Georgia & 1995 & Down & 1991--2000 & 7 & 131 & 943 \\
+Rutgers the State University of NJ & 2000 & Down & 1996--2005 & 10 & 119 & 977 \\
+Thomas Jefferson University & 2000 & Down & 1996--2005 & 5 & 119 & 972 \\
+Tulane University & 2001 & Down & 1997--2006 & 10 & 117 & 974 \\
+University of Arkansas Fayetteville & 2001 & Down & 1997--2006 & 9 & 117 & 973 \\
+North Carolina State University & 2003 & Down & 1999--2008 & 7 & 114 & 936 \\
+Oregon State University & 2003 & Down & 1999--2008 & 10 & 114 & 939 \\
+Brown University & 2005 & Down & 2001--2010 & 5 & 110 & 909 \\
+University of Maryland, Baltimore (UMB) & 2005 & Down & 2001--2010 & 7 & 110 & 911 \\
+University of South Alabama & 2005 & Down & 2001--2010 & 9 & 110 & 913 \\
+Texas A\&M University System & 2006 & Down & 2002--2011 & 9 & 112 & 968 \\
+Harvard University & 2008 & Down & 2004--2013 & 10 & 109 & 952 \\
+Clemson University & 2009 & Down & 2005--2014 & 10 & 103 & 922 \\
+Ball State University & 2013 & Down & 2009--2018 & 2 & 97 & 825 \\
+Virginia Tech (Virginia Polytechnic Institute) & 2013 & Down & 2009--2018 & 8 & 97 & 831 \\
+University of Dayton & 2015 & Down & 2011--2020 & 8 & 91 & 782 \\
+University of Idaho & 2016 & Down & 2012--2021 & 9 & 87 & 745 \\
+North Dakota State University & 2017 & Down & 2013--2022 & 7 & 85 & 728 \\
+Oklahoma State University & 2019 & Down & 2015--2024 & 9 & 84 & 630 \\
+West Virginia University & 2019 & Down & 2015--2024 & 8 & 84 & 629 \\
+Brandeis University & 2020 & Down & 2016--2025 & 8 & 85 & 583 \\
+University of Hawaii & 2020 & Down & 2016--2025 & 8 & 85 & 583 \\
+University of South Carolina & 2021 & Down & 2017--2026 & 7 & 88 & 518 \\
+Brown University & 2021 & Down & 2017--2026 & 6 & 88 & 517 \\
+Yale University & 2023 & Down & 2019--2028 & 3 & 86 & 384 \\
+\bottomrule
+\multicolumn{7}{p{15.2cm}}{\footnotesize\textit{Notes:} One stack per revision. Controls are institutions with no
+threshold revision anywhere in the event window and are observed in the same calendar years. Counts shown are for the
+licensing outcome.}
+\end{longtable}
+}
+
+\begin{table}[htbp]\centering
+\caption{Event-time coefficients, upward minus downward revisions}\label{tab:eventtime}
+\begin{threeparttable}\scriptsize
+\begin{tabular}{rrrrrr}\toprule
+Year & Licenses & Filing margin & Applications & Patents issued & Disclosures \\\midrule
+-4 & 0.297 (0.177) & -0.008 (0.176) & -0.075 (0.282) & 0.000 (0.203) & -0.067 (0.210) \\
+-3 & 0.136 (0.197) & -0.195 (0.253) & -0.048 (0.235) & 0.147 (0.195) & 0.147 (0.107) \\
+-2 & 0.134 (0.132) & 0.010 (0.177) & 0.102 (0.186) & 0.230 (0.149) & 0.091 (0.105) \\
+$-1$ & \multicolumn{5}{c}{reference} \\
++0 & 0.309 (0.162) & 0.190 (0.160) & 0.116 (0.166) & -0.164 (0.210) & -0.073 (0.089) \\
++1 & 0.321 (0.283) & 0.081 (0.179) & 0.107 (0.186) & 0.093 (0.153) & 0.027 (0.132) \\
++2 & 0.314 (0.156) & 0.396 (0.207) & 0.395 (0.221) & 0.213 (0.251) & -0.001 (0.117) \\
++3 & 0.571 (0.224) & 0.708 (0.240) & 0.393 (0.311) & 0.215 (0.223) & -0.315 (0.169) \\
++4 & 0.762 (0.244) & 0.584 (0.198) & 0.304 (0.213) & 0.151 (0.267) & -0.280 (0.100) \\
++5 & 0.693 (0.262) & 0.393 (0.254) & 0.246 (0.251) & 0.312 (0.282) & -0.148 (0.159) \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]\footnotesize
+\item \textit{Notes:} Coefficients $2\theta_k$ from equation~\eqref{eq:stacked} with institution-clustered standard errors
+in parentheses; preferred 34-event sample. Count outcomes are transformed as $\log(1+y)$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
