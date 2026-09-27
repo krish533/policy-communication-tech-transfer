@@ -1,0 +1,65 @@
+name: Build expanded manuscript
+
+on:
+  push:
+    branches: [sept25-revision-baseline]
+    paths:
+      - 'manuscript/**'
+      - 'code/final_expanded_inference.py'
+      - 'code/expanded34_diagnostics.py'
+      - 'code/build_expanded_manuscript_figures.py'
+      - 'code/expanded_manual_revision_analysis.py'
+      - 'data/revision_codes_rereview37.csv'
+      - '.github/workflows/manuscript_build.yml'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install analysis and plotting dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install matplotlib
+
+      - name: Rebuild expanded manuscript results
+        run: |
+          python code/final_expanded_inference.py
+          python code/expanded34_diagnostics.py
+          python code/build_expanded_manuscript_figures.py
+
+      - name: Compile LaTeX manuscript
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: main.tex
+          working_directory: manuscript
+          args: -pdf -file-line-error -halt-on-error -interaction=nonstopmode
+
+      - name: Upload manuscript PDF and source bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: expanded-34-event-manuscript
+          path: |
+            manuscript/main.pdf
+            manuscript/main.tex
+            manuscript/updated34/**
+            manuscript/figures/fig1_event_study_expanded.pdf
+            manuscript/figures/fig1_event_study_expanded.png
+            manuscript/figures/figA1_leave_one_out_expanded.pdf
+            manuscript/figures/figA1_leave_one_out_expanded.png
+            results/expanded_manual_sample_results.csv
+            results/expanded34_event_list.csv
+            results/strict29_event_list.csv
+            results/expanded34_balance.csv
+            results/expanded34_stack_composition.csv
+            results/expanded34_leave_one_out.csv
+            results/expanded_event_time_paths.csv
+          if-no-files-found: error
