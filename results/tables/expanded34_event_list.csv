@@ -1,0 +1,35 @@
+institution,prev_doc_year,revision_year,delta_pcsi,comparability,timing_tier,direction,main_sample,source_sample,review_confidence,event_id,sign,treated_post_core_years
+University of South Carolina,1994.0,2005,0.16,C,A,up,1,sept25_main25,baseline,0,1.0,5
+Stevens Institute of Technology,2000.0,2014,0.058,P,B,up,1,sept25_main25,baseline,1,1.0,4
+Albert Einstein/Yeshiva,1985.0,2015,0.065,C,B,up,1,sept25_main25,baseline,2,1.0,6
+University of Minnesota,2010.0,2015,0.046,C,A,up,1,sept25_main25,baseline,3,1.0,6
+Utah State University,2002.0,2016,0.078,C,A,up,1,sept25_main25,baseline,4,1.0,3
+Boston University,2000.0,2017,0.055,C,A,up,1,sept25_main25,baseline,5,1.0,6
+Stanford University,1989.0,1994,-0.046,P,A,down,1,sept25_main25,baseline,6,-1.0,6
+University of Georgia,1982.0,1995,-0.135,C,B,down,1,sept25_main25,baseline,7,-1.0,6
+Rutgers the State University of NJ,1996.0,2000,-0.13,P,B,down,1,sept25_main25,baseline,8,-1.0,6
+Tulane University,1985.0,2001,-0.046,C,B,down,1,sept25_main25,baseline,9,-1.0,6
+North Carolina State University,2002.0,2003,-0.031,C,A,down,1,sept25_main25,baseline,10,-1.0,3
+Oregon State University,2001.0,2003,-0.226,P,A,down,1,sept25_main25,baseline,11,-1.0,6
+Brown University,1981.0,2005,-0.036,C,A,down,1,sept25_main25,baseline,12,-1.0,1
+"University of Maryland, Baltimore (UMB)",1990.0,2005,-0.043,C,B,down,1,sept25_main25,baseline,13,-1.0,3
+University of South Alabama,1984.0,2005,-0.034,C,B,down,1,sept25_main25,baseline,14,-1.0,6
+Harvard University,1998.0,2008,-0.086,P,A,down,1,sept25_main25,baseline,15,-1.0,6
+Clemson University,1991.0,2009,-0.103,C,B,down,1,sept25_main25,baseline,16,-1.0,6
+University of Dayton,1996.0,2015,-0.044,P,A,down,1,sept25_main25,baseline,17,-1.0,4
+University of Idaho,1998.0,2016,-0.037,C,A,down,1,sept25_main25,baseline,18,-1.0,5
+North Dakota State University,2016.0,2017,-0.031,P,B,down,1,sept25_main25,baseline,19,-1.0,3
+Oklahoma State University,2010.0,2019,-0.057,C,A,down,1,sept25_main25,baseline,20,-1.0,5
+West Virginia University,2016.0,2019,-0.108,C,A,down,1,sept25_main25,baseline,21,-1.0,4
+Brandeis University,2004.0,2020,-0.072,C,B,down,1,sept25_main25,baseline,22,-1.0,4
+University of Hawaii,2014.0,2020,-0.037,C,A,down,1,sept25_main25,baseline,23,-1.0,4
+University of South Carolina,2005.0,2021,-0.047,C,A,down,1,sept25_main25,baseline,24,-1.0,3
+Texas A&M University System,2001.0,2006,-0.293190337398171,C,A,down,0,rereview37_addition,high,25,-1.0,6
+Thomas Jefferson University,1998.0,2000,-0.0718727001912638,P,A,down,0,rereview37_addition,medium,26,-1.0,1
+Ball State University,2008.0,2013,-0.0647016335568739,P,B,down,0,rereview37_addition,medium,27,-1.0,1
+University of Pittsburgh,2005.0,2021,0.0528089026490183,P,A,up,0,rereview37_addition,high,28,1.0,3
+University of Arkansas Fayetteville,1986.0,2001,-0.0501471011436858,C,A,down,0,rereview37_addition,high,29,-1.0,5
+Yale University,1998.0,2023,-0.0414390974969047,C,B,down,0,rereview37_addition,high,30,-1.0,1
+Washington State University (WSU),2016.0,2023,0.041025860848549,P,B,up,0,rereview37_addition,medium,31,1.0,1
+Virginia Tech (Virginia Polytechnic Institute),2008.0,2013,-0.0324489463439283,C,A,down,0,rereview37_addition,high,32,-1.0,4
+Brown University,2005.0,2021,-0.0308098093455082,P,B,down,0,rereview37_addition,medium,33,-1.0,2
