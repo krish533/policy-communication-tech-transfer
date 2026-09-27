@@ -1,0 +1,25 @@
+\section{Stricter post-support sensitivity}\label{app:strict}
+
+The strict sample applies one additional rule uniformly to all documentary-reviewed events: the treated institution must
+have at least two core-outcome panel years in event times 0 through $+5$, guaranteeing at least one observed calendar year
+after the revision year. This removes five preferred-sample events and leaves 29 revisions (7 upward, 22 downward).
+
+\begin{table}[htbp]\centering
+\caption{Technology-transfer outcomes in the strict 29-event sample}\label{tab:strict}
+\begin{threeparttable}\footnotesize\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lrrrrrrrr}\toprule
+ & \multicolumn{5}{c}{Upward minus downward} & \multicolumn{2}{c}{Relative to controls} & \\\cmidrule(lr){2-6}\cmidrule(lr){7-8}
+Outcome & Gap & SE & Perm.\ $p$ & BH $q$ & Pre $p$ & Upward & Downward & $N$ \\\midrule
+Log licenses and options & 0.499 & (0.133) & 0.026 & 0.130 & 0.52 & 0.230 & -0.269 & 23,079 \\
+Filing margin & 0.361 & (0.158) & 0.119 & 0.298 & 0.68 & 0.141 & -0.220 & 23,186 \\
+Log new patent applications & 0.167 & (0.177) & 0.397 & 0.496 & 0.86 & 0.108 & -0.060 & 23,186 \\
+Log U.S. patents issued & 0.122 & (0.203) & 0.606 & 0.606 & 0.35 & 0.154 & 0.032 & 22,691 \\
+Log invention disclosures & -0.194 & (0.098) & 0.202 & 0.337 & 0.49 & -0.033 & 0.161 & 23,186 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]\footnotesize
+\item \textit{Notes:} Same specification as Table~\ref{tab:main}. Permutation inference uses 100,000 random
+direction-label assignments preserving seven upward events.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
