@@ -1,26 +1,22 @@
 \section{Results}\label{sec:results}
 
-Figure~\ref{fig:event} traces the licensing difference between upward and downward revisions relative to clean controls.
-The three pre-period coefficients are positive but imprecise---0.30, 0.14, and 0.13 log points in years $-4$ through
-$-2$---and the joint pre-trend test does not reject equality ($p=0.32$). The difference rises to 0.31 in the revision
-year, remains near 0.31 in years $+1$ and $+2$, and reaches 0.57--0.76 in years $+3$ through $+5$. Averaged across event
-years 0--5, the licensing gap is 0.495 log points (SE 0.140). In 100,000 direction-label permutations, the two-sided
-$p$-value is 0.032.
+We estimate equation~\eqref{eq:stacked} separately for each of the five principal technology-transfer outcomes. Table~\ref{tab:main} reports the resulting post-revision contrasts $\Delta_m$, while Figure~\ref{fig:event} displays the event-time path for licensing, the outcome with the largest and most precisely estimated direction contrast.
+
+For licensing, the three pre-period coefficients are positive but imprecise---0.30, 0.14, and 0.13 log points in event years $-4$ through $-2$---and the joint pre-trend test does not reject equality ($p=0.32$). The differential is 0.31 in the revision year, remains near 0.31 in years $+1$ and $+2$, and is larger in years $+3$ through $+5$. Averaged across event years 0--5, the upward-minus-downward licensing gap is 0.495 log points (SE 0.140). In 100,000 direction-label permutations, the two-sided nominal $p$-value is 0.032.
 
 \begin{figure}[htbp]\centering
 \IfFileExists{figures/fig1_event_study_expanded.pdf}{%
 \includegraphics[width=0.82\textwidth]{figures/fig1_event_study_expanded.pdf}}{%
 \fbox{\parbox{0.78\textwidth}{\centering Run \texttt{python code/build\_expanded\_manuscript\_figures.py} from the repository root to generate this figure.}}}
 \caption{Licensing around documentary-reviewed IP-policy revisions}\label{fig:event}
-\begin{minipage}{0.9\textwidth}\footnotesize\textit{Notes:} Coefficients are the upward-minus-downward event-time
-differences $2\theta_k$ from equation~\eqref{eq:stacked} for the preferred 34-event sample, with institution-clustered
-95\% confidence intervals. Year $-1$ is the reference.
+\begin{minipage}{0.9\textwidth}\footnotesize\textit{Notes:} Coefficients are the upward-minus-downward event-time differences $2\theta^{\text{lic}}_k$ from equation~\eqref{eq:stacked} for the preferred 34-event sample, with institution-clustered 95\% confidence intervals. Year $-1$ is the reference period.
 \end{minipage}
 \end{figure}
 
 \begin{table}[htbp]\centering
 \caption{Technology-transfer outcomes around IP-policy revisions}\label{tab:main}
-\begin{threeparttable}\footnotesize\setlength{\tabcolsep}{4pt}
+\begin{threeparttable}\footnotesize
+\resizebox{0.95\textwidth}{!}{%
 \begin{tabular}{lrrrrrrrr}\toprule
  & \multicolumn{5}{c}{Upward minus downward} & \multicolumn{2}{c}{Relative to controls} & \\\cmidrule(lr){2-6}\cmidrule(lr){7-8}
 Outcome & Gap & SE & Perm.\ $p$ & BH $q$ & Pre $p$ & Upward & Downward & $N$ \\\midrule
@@ -30,45 +26,27 @@ Log new patent applications & 0.260 & (0.175) & 0.205 & 0.341 & 0.89 & 0.136 & -
 Log U.S. patents issued & 0.137 & (0.190) & 0.541 & 0.541 & 0.47 & 0.171 & 0.034 & 26,151 \\
 Log invention disclosures & -0.132 & (0.095) & 0.380 & 0.475 & 0.40 & -0.007 & 0.124 & 26,679 \\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \begin{tablenotes}[flushleft]\footnotesize
-\item \textit{Notes:} Preferred sample: 34 hand-reviewed revisions, eight upward and 26 downward; window $-4$ to $+5$,
-year $-1$ omitted. Fixed effects: stack $\times$ institution and stack $\times$ year $\times$ research-size tercile
-$\times$ public/private; control: log research expenditure. Permutation $p$: two-sided 100,000-draw reassignment test
-preserving eight upward labels. The Monte Carlo SE for the licensing $p$-value is 0.0006. BH $q$: Benjamini--Hochberg
-adjustment across the five outcomes. Pre $p$: joint Wald test of the three pre-period direction coefficients.
+\item \textit{Notes:} Preferred sample: 34 documentary-reviewed revisions, eight upward and 26 downward; target window $-4$ to $+5$, with year $-1$ omitted. Fixed effects: stack $\times$ institution and stack $\times$ calendar year $\times$ research-size-tercile $\times$ public/private; control: log research expenditure. Permutation $p$: two-sided 100,000-draw reassignment test preserving eight upward labels. BH $q$: Benjamini--Hochberg adjustment across the five outcomes. Pre $p$: joint Wald test of the three pre-period direction coefficients. $N$ counts stacked institution-year-event observations after outcome-specific missing-value restrictions; it is not the number of unique institution-years or policy events.
 \end{tablenotes}
 \end{threeparttable}
 \end{table}
 
-The licensing gap reflects movement in both directions. Relative to non-revising controls, the post-period average is
-$+0.279$ after upward revisions and $-0.216$ after downward revisions. The symmetry is not exact, but the result is not
-generated solely by one direction. This remains true under the stricter post-support rule: the 29-event sample yields a
-gap of 0.499 (SE 0.133), with $+0.230$ for upward and $-0.269$ for downward revisions.
+The licensing differential reflects movement in both directions. Relative to non-revising controls, the post-period average is $+0.279$ after upward revisions and $-0.216$ after downward revisions. The magnitudes are not symmetric, but the estimated difference is not generated solely by one direction. Under the stricter post-support rule, the corresponding licensing gap is 0.499 (SE 0.133), with $+0.230$ for upward and $-0.269$ for downward revisions.
 
-The other outcomes locate rather than generalize the pattern. The filing margin has a positive gap of 0.392 and a flat
-pre-period, but its permutation $p$-value is 0.097. New patent applications show a positive gap of 0.260
-($p=0.205$). Patents issued have a smaller positive estimate, and invention disclosures show a negative but imprecise
-gap. After adjusting the five permutation tests, the licensing result has $q=0.159$. Thus the data do not support a
-claim that policy revisions shift the entire commercialization pipeline. The strongest evidence is concentrated in
-licensing.
+The other outcomes help locate rather than generalize the pattern. The filing margin has a positive gap of 0.392 and a flat pre-period, but its nominal permutation $p$-value is 0.097. New patent applications have a positive gap of 0.260 ($p=0.205$). Patents issued show a smaller positive differential. For invention disclosures, the estimated gap is negative and imprecise, so we do not detect the increase that would be expected if the primary post-revision pattern operated through greater faculty entry into the disclosure process.
 
-That concentration matters for interpretation. If more supportive communication primarily induced additional faculty
-entry into the TTO process, invention disclosures would be a natural first-stage outcome. They are not. Licensing,
-however, depends on post-disclosure evaluation, marketing, negotiation, and continued cooperation among inventors, TTO
-staff, and firms. The filing margin and applications also lie downstream and move in the same direction, though with
-insufficient precision for separate conclusions.
+Multiple testing materially changes the evidentiary interpretation. Although licensing is individually unusual in the direction-label permutation distribution, the Benjamini--Hochberg adjustment across the five main outcomes gives $q=0.159$. The licensing result therefore does not reject at conventional family-adjusted thresholds. We interpret it as the strongest outcome-specific pattern in the data, not as evidence that revisions shift the technology-transfer pipeline broadly.
 
-\subsection*{Robustness to the expanded sample definition}
+That concentration is substantively informative. Licensing depends on post-disclosure evaluation, market search, negotiation, and continued cooperation among inventors, TTO staff, and firms. The filing margin and new patent applications also lie downstream of disclosure and move in the same direction, although with insufficient precision for separate conclusions. The absence of a corresponding disclosure increase makes a simple ``more faculty enter the TTO'' interpretation less consistent with the observed pattern.
 
-The expansion from 25 to 34 events is not based on the outcome estimates. It follows a complete documentary re-review of
-the 37 mechanically eligible pairs that had not previously been hand coded. Nine pass the same C/P and A/B rules.
-Nevertheless, late and sparse events could contribute disproportionate leverage. Table~\ref{tab:robust} therefore
-shows a uniform stricter outcome-support rule, the reproduced September-25 25-event set, and the broader 59-event
-rule-coded specification.
+\subsection*{Robustness to the preferred sample definition}
+
+The expansion from the September-25 event set to the preferred sample is based on documentary review rather than outcome estimates. The 37 mechanically eligible pairs not previously hand coded were reviewed using the same comparability and timing rules, and nine additional events passed. Table~\ref{tab:robust} compares the preferred sample with a uniform stricter post-support rule and the original September-25 documentary set.
 
 \begin{table}[htbp]\centering
-\caption{Alternative event samples: licensing and filing margin}\label{tab:robust}
+\caption{Alternative documentary event samples: licensing and filing margin}\label{tab:robust}
 \footnotesize
 \resizebox{0.96\textwidth}{!}{%
 \begin{tabular}{lcrrrrrrr}\toprule
@@ -77,43 +55,26 @@ Sample & Up/down & Gap & SE & Perm.\ $p$ & Pre $p$ & Gap & SE & Perm.\ $p$ \\\mi
 Preferred documentary sample & 8/26 & 0.495 & (0.140) & 0.032 & 0.32 & 0.392 & (0.155) & 0.097 \\
 Strict post-support sample & 7/22 & 0.499 & (0.133) & 0.026 & 0.52 & 0.361 & (0.158) & 0.119 \\
 Reproduced September-25 event set & 6/19 & 0.621 & (0.136) & 0.009 & 0.62 & 0.380 & (0.170) & 0.153 \\
-Broader sample including rule-coded revisions & 17/42 & 0.419 & (0.113) & 0.006$^{\dagger}$ & 0.34 & 0.187 & (0.104) & 0.176$^{\dagger}$ \\
 \bottomrule
 \end{tabular}}
 \vspace{2pt}
 
-\parbox{0.94\textwidth}{\footnotesize\textit{Notes:} The preferred and strict samples use 100,000 Monte Carlo direction
-assignments. The reproduced 25-event row uses exact enumeration over all $\binom{25}{6}=177{,}100$ direction
-assignments. The broader 59-event row is retained from the pre-expansion robustness exercise and uses 20,000 draws
-($\dagger$); it is not preferred because many pairs are rule-coded rather than document-reviewed.}
+\parbox{0.94\textwidth}{\footnotesize\textit{Notes:} The preferred and strict samples use 100,000 Monte Carlo direction assignments. The reproduced 25-event row uses exact enumeration over all $\binom{25}{6}=177{,}100$ direction assignments. A legacy broader rule-coded specification is reported in Appendix~\ref{app:strict} but is not part of the preferred documentary hierarchy.}
 \end{table}
 
-The stricter sample is especially informative. It drops all preferred-sample events without at least one observed calendar
-year after the event, including both 2023 additions, and also applies the same rule to the original events. The resulting
-29-event estimate is nearly identical to the preferred result and has a weaker pre-period difference. The stability is
-therefore not an artifact of treating the final AUTM year as a post-revision observation.
+The stricter sample removes preferred-sample events without at least one observed calendar year after the event and applies the rule uniformly to both the original and newly admitted revisions. Its licensing estimate is nearly identical to the preferred estimate and has a weaker pre-period differential. The result is therefore not an artifact of treating the final AUTM year as if it provided a long post-revision window.
 
-No single revision drives the expanded result. Dropping each of the 34 events in turn produces licensing gaps from 0.436
-to 0.559 (Appendix Figure~\ref{fig:loo}). The estimate therefore remains positive even when any one of the eight upward
-or 26 downward revisions is removed.
+No single revision drives the preferred licensing estimate. Dropping each of the 34 events in turn produces gaps from 0.436 to 0.559 (Appendix Figure~\ref{fig:loo}). The estimate remains positive when any one of the eight upward or 26 downward events is omitted.
 
-\subsection*{Pre-revision balance}
+\subsection*{Pre-revision balance and selection}
 
-Appendix Table~\ref{tab:balance} compares upward and downward events before revision. Licensing trends are essentially
-identical, and differences in pre-revision licensing, research expenditure, public/private status, and timing
-classification are not statistically unusual under label permutations. Upward revisions occur somewhat later and at
-institutions with more disclosures, but these differences are imprecise. The sharp difference is the starting policy:
-mean prior-document PCSI is 0.384 for upward revisions and 0.485 for downward revisions (standardized difference $-1.65$;
-permutation $p=0.002$). This mean-reversion concern is substantive and is one reason we do not interpret the direction
-contrast causally.
+Appendix Table~\ref{tab:balance} compares upward and downward events before revision. Pre-revision licensing trends are essentially identical, and differences in pre-revision licensing, research expenditure, public/private status, and documentary classification are not statistically unusual under label permutations. Upward revisions occur somewhat later and at institutions with more disclosures, but these differences are imprecise.
+
+The clearest imbalance is the stance of the predecessor policy. Mean prior-document PCSI is 0.384 for upward revisions and 0.485 for downward revisions, with a standardized difference of $-1.65$ and permutation $p=0.002$. This is a substantive selection and mean-reversion concern, not a minor balance discrepancy. Universities with relatively restrictive predecessor policies mechanically have more room to move upward, and the reasons they do so may also be related to organizational change. This imbalance is a central reason the direction contrast is not interpreted causally, even though the observed licensing pre-trends are similar.
 
 \subsection*{Revision content and supporting annual evidence}
 
-Across all 127 threshold revisions, downward revisions add conflict-of-interest language in 32 percent of cases compared
-with 13 percent of upward revisions (Fisher $p=0.019$; Table~\ref{tab:content}). This is a keyword-presence comparison,
-not a legal coding of what the provisions require. Provision-level hand coding remains available for the original
-25-event content-coded subset (Appendix~\ref{app:provisions}); we retain it as supplementary evidence rather than
-retroactively extending those provision labels after observing the expanded-sample results.
+Across all 127 threshold revisions, downward revisions are more likely to add conflict-of-interest language than upward revisions (Table~\ref{tab:content}). This is a keyword-presence comparison, not a legal coding of what the provisions require. Provision-level hand coding remains available for the original 25-event content-coded subset (Appendix~\ref{app:provisions}); we retain it as supplementary evidence rather than retroactively extending those provision labels after observing the expanded-sample results.
 
 \begin{table}[htbp]\centering
 \caption{Content added in upward and downward revisions}\label{tab:content}
@@ -133,15 +94,10 @@ retroactively extending those provision labels after observing the expanded-samp
 \quad Adds copyright language & 13\% & 20\% & 0.341 \\
 \bottomrule\end{tabular}
 \begin{tablenotes}[flushleft]\footnotesize
-\item \textit{Notes:} Share of revisions whose later document contains language absent from the earlier document, detected by keyword search: present assignment (``hereby assign''), equity or stock, conflict(s) of interest, startup/spin-off/new venture, copyright. Descriptive; keyword presence does not establish the legal content of a provision.
+\item \textit{Notes:} Share of revisions whose later document contains language absent from the earlier document, detected by keyword search: present assignment (``hereby assign''), equity or stock, conflict(s) of interest, startup/spin-off/new venture, and copyright. Two-sided Fisher exact $p$-values are shown. Keyword presence is descriptive and does not establish the legal content or administrative effect of a provision.
 \end{tablenotes}\end{threeparttable}\end{table}
 
-The annual panel points in the same direction but with much less precision. Table~\ref{tab:twfe} reports regressions of
-each outcome on contemporaneous and lagged PCSI. The filing-margin coefficient is positive at every horizon, 0.94 at lag
-one and 1.20 at lag two; the licensing coefficient is positive at lags zero to four but imprecise; and disclosure
-coefficients are negative at every lag. No lag-one coefficient survives the reported adjustment across the six outcomes.
-These annual models are useful as a different representation of the data, but the revision design is preferred because
-it imposes documentary timing and comparability requirements directly.
+The annual panel points in the same general direction but with substantially less precision. Table~\ref{tab:twfe} reports regressions of each outcome on contemporaneous and lagged PCSI. The filing-margin coefficient is positive at every horizon, the licensing coefficient is positive through several lags but imprecise, and disclosure coefficients are negative at each reported lag. No lag-one coefficient survives the reported adjustment across the six annual-panel outcomes. These models provide a different representation of the data, but they are not substitutes for the revision design because annual PCSI values are usually carried forward and the annual representation does not impose documentary timing and comparability rules.
 
 \begin{table}[htbp]\centering
 \caption{Supporting evidence: continuous PCSI in two-way fixed-effects models}\label{tab:twfe}
@@ -161,5 +117,5 @@ Licenses/options & 0.517 & 0.596 & 0.399 & 0.273 & 0.161 & -0.451 & 0.345 \\
  & (0.489) & (0.452) & (0.405) & (0.441) & (0.467) & (0.503) & \\
 \bottomrule\end{tabular}
 \begin{tablenotes}[flushleft]\footnotesize
-\item \textit{Notes:} Coefficients on PCSI (contemporaneous or lagged $k$ calendar years); institution-clustered standard errors in parentheses. Institution fixed effects on the 149 harmonized institutions, year fixed effects, and lagged log research expenditure, log licensing FTEs and inventor royalty share. Filing-margin samples: $N=2,339, 2,271, 2,132, 2,005, 1,891, 1,772$ from contemporaneous to lag 5. BH $q$: Benjamini--Hochberg adjustment across the six lag-1 outcomes shown.
+\item \textit{Notes:} Coefficients on PCSI (contemporaneous or lagged $k$ calendar years); institution-clustered standard errors in parentheses. Models include institution fixed effects on the 149 harmonized institutions, year fixed effects, and lagged log research expenditure, log licensing FTEs, and inventor royalty share. Filing-margin samples are $N=2,339, 2,271, 2,132, 2,005, 1,891, 1,772$ from contemporaneous to lag 5. BH $q$: Benjamini--Hochberg adjustment across the six lag-one outcomes shown.
 \end{tablenotes}\end{threeparttable}\end{table}
