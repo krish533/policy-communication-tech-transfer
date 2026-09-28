@@ -4,10 +4,10 @@
 \begin{longtable}{p{5.8cm}rcrrrr}
 \caption{Composition of the preferred licensing stacks}\label{tab:stacks}\\
 \toprule
-Revising institution & Year & Dir. & Window & Treated obs. & Controls & Obs. \\\midrule
+Revising institution & Year & Dir. & Target window & Treated obs. & Controls & Obs. \\\midrule
 \endfirsthead
 \toprule
-Revising institution & Year & Dir. & Window & Treated obs. & Controls & Obs. \\\midrule
+Revising institution & Year & Dir. & Target window & Treated obs. & Controls & Obs. \\\midrule
 \endhead
 University of South Carolina & 2005 & Up & 2001--2010 & 8 & 110 & 912 \\
 Stevens Institute of Technology & 2014 & Up & 2010--2019 & 6 & 93 & 798 \\
@@ -44,9 +44,7 @@ University of South Carolina & 2021 & Down & 2017--2026 & 7 & 88 & 518 \\
 Brown University & 2021 & Down & 2017--2026 & 6 & 88 & 517 \\
 Yale University & 2023 & Down & 2019--2028 & 3 & 86 & 384 \\
 \bottomrule
-\multicolumn{7}{p{15.2cm}}{\footnotesize\textit{Notes:} One stack per revision. Controls are institutions with no
-threshold revision anywhere in the event window and are observed in the same calendar years. Counts shown are for the
-licensing outcome.}
+\multicolumn{7}{p{15.2cm}}{\footnotesize\textit{Notes:} One stack per revision. The target window is $E-4$ through $E+5$; the AUTM panel ends in 2023, so target-window years after 2023 contribute no observations. Controls are institutions with no threshold revision anywhere in the target window and are observed in the same available calendar years. Counts shown are for the licensing outcome.}
 \end{longtable}
 }
 
@@ -68,8 +66,7 @@ $-1$ & \multicolumn{5}{c}{reference} \\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}[flushleft]\footnotesize
-\item \textit{Notes:} Coefficients $2\theta_k$ from equation~\eqref{eq:stacked} with institution-clustered standard errors
-in parentheses; preferred 34-event sample. Count outcomes are transformed as $\log(1+y)$.
+\item \textit{Notes:} Coefficients $2\theta^m_k$ from equation~\eqref{eq:stacked} with institution-clustered standard errors in parentheses; preferred 34-event sample. Count outcomes are transformed as $\log(1+y)$; the filing margin is defined in equation~\eqref{eq:filingmargin}.
 \end{tablenotes}
 \end{threeparttable}
 \end{table}
