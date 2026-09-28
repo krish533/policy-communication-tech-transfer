@@ -1,45 +1,39 @@
 \section{Empirical strategy}\label{sec:strategy}
 
-For each documentary-reviewed revision $e$ at institution $i(e)$ with event year $E_e$, we form a stack containing the
-revising institution and institutions with no threshold revision anywhere in the window $[E_e-4,E_e+5]$, observed over
-the same calendar years. Pooling the stacks, we estimate
+For each documentary-reviewed revision $e$ at treated institution $i(e)$ with event year $E_e$, we construct an event-specific stack. The stack contains the revising institution and institutions with no threshold revision anywhere in the target window $[E_e-4,E_e+5]$, observed in the same calendar years whenever AUTM data are available. A comparison institution can therefore appear in more than one stack if it is a valid non-reviser for multiple events. This is intentional: stacking creates a separate contemporaneous comparison set for each revision date and avoids using institutions with contaminating revisions inside that event's window.
+
+We estimate the following specification separately for each principal outcome $m$:
 \begin{equation}
-Y_{ist}=\sum_{k\neq-1}\delta_k D^k_{ist}
-+\sum_{k\neq-1}\theta_k D^k_{ist}S_{e(s)}
-+\gamma\log R_{it}+\alpha_{is}+\lambda_{stc(i)}+\varepsilon_{ist},
+Y^{m}_{ist}
+=
+\sum_{k\neq-1}\delta^{m}_k D^k_{ist}
++
+\sum_{k\neq-1}\theta^{m}_k D^k_{ist}S_{e(s)}
++
+\gamma^{m}\log R_{it}
++
+\alpha^{m}_{is}
++
+\lambda^{m}_{stg(i)}
++
+\varepsilon^{m}_{ist},
 \label{eq:stacked}
 \end{equation}
-where $s$ indexes stacks, $D^k_{ist}$ indicates the revising institution $k$ years from its revision, and
-$S_e\in\{-1,+1\}$ equals $+1$ for an upward revision and $-1$ for a downward revision. The
-institution-by-stack effects $\alpha_{is}$ absorb level differences. The stack-by-year effects
-$\lambda_{stc(i)}$ are interacted with research-size tercile and public/private status, and $R_{it}$ is research
-expenditure. Year $-1$ is omitted. The stacked structure uses clean contemporaneous comparisons and avoids the
-contaminated-comparison problems that arise in conventional two-way fixed-effects event studies under staggered timing
-\citep{GoodmanBacon2021,CallawaySantAnna2021,SunAbraham2021,CengizEtAl2019}.
+where $i$ indexes institutions, $s$ event-specific stacks, and $t$ calendar years. The outcome index $m$ identifies one of five dependent variables: licenses/options, the filing margin, new patent applications, patents issued, or invention disclosures. For count outcomes, $Y^{m}_{ist}$ is $\log(1+y)$; the filing margin is defined in equation~\eqref{eq:filingmargin}. $D^k_{ist}$ equals one for the treated institution in stack $s$ when it is $k$ years from its revision and zero otherwise. $S_{e(s)}\in\{-1,+1\}$ equals $+1$ for an upward revision and $-1$ for a downward revision. Event year $-1$ is omitted.
 
-The paths $\delta_k+\theta_k$ and $\delta_k-\theta_k$ describe upward and downward revisions relative to their controls,
-and $2\theta_k$ is the difference between the two. The headline estimand is
+The institution-by-stack fixed effects $\alpha^{m}_{is}$ absorb time-invariant level differences within each event-specific comparison set. The term $\lambda^{m}_{stg(i)}$ denotes stack-by-calendar-year fixed effects interacted with the institution's research-size-tercile-by-public/private group $g(i)$. $R_{it}$ is research expenditure. Thus each stack compares the revising institution with contemporaneous non-revisers while allowing common calendar-year shocks to differ across broad institution types. The stacked structure follows the logic of event-specific risk sets used to address contaminated comparisons in settings with staggered timing \citep{GoodmanBacon2021,CallawaySantAnna2021,SunAbraham2021,CengizEtAl2019}.
+
+For outcome $m$, the path $\delta^{m}_k+\theta^{m}_k$ describes the treated-versus-control difference around upward revisions, while $\delta^{m}_k-\theta^{m}_k$ describes the corresponding path around downward revisions. Their difference is $2\theta^{m}_k$. We summarize the six post-revision event times with
 \begin{equation}
-\Delta=\frac{1}{6}\sum_{k=0}^{5}2\theta_k.
+\Delta_m=\frac{1}{6}\sum_{k=0}^{5}2\theta^{m}_k.
+\label{eq:delta}
 \end{equation}
-This difference-in-differences-in-direction comparison removes changes that accompany revision generally. It does not
-remove changes that systematically accompany \emph{the direction} of revision. If universities that tighten their
-policies are simultaneously reorganizing TTOs or changing budgets in ways that reduce licensing, $\Delta$ may capture
-those changes as well. The identifying comparison therefore requires that, absent direction-specific changes, upward and
-downward revisers would have evolved similarly relative to their clean controls. Pre-revision paths and balance
-diagnostics are informative about this condition but cannot establish it.
+Accordingly, Table~\ref{tab:main} reports a different $\Delta_m$ for each of the five outcomes rather than treating $Y$ as a single dependent variable.
 
-Standard errors are clustered by institution. The effective variation in direction comes from 34 events, including only
-eight upward revisions, so we place greater weight on randomization-style permutation inference than on asymptotic
-clustered $p$-values. Holding event dates, stacks, outcomes, and controls fixed, we repeatedly reassign which eight of the
-34 events are labeled upward and recompute $\Delta$. The preferred results use 100,000 random assignments preserving the
-number of upward events; the Monte Carlo standard error of the licensing permutation $p$-value is approximately 0.0006.
-This procedure tests exchangeability of direction labels under the null. Because direction was not randomly assigned,
-exchangeability is an assumption, not a feature of the institutional design. We therefore report pre-revision balance,
-pre-trend tests, leave-one-event-out estimates, and the stricter 29-event sample alongside the permutation results.
-Benjamini--Hochberg $q$-values adjust the five main-outcome permutation tests as a family.
+The interpretation of $\Delta_m$ is observational. The upward-minus-downward contrast compares post-revision changes in the two revision directions relative to contemporaneous non-revisers and is designed to net out changes common to revision events. It does not remove changes that systematically accompany the \emph{direction} of revision. A causal interpretation would require upward and downward revisers to have evolved similarly relative to their controls in the absence of direction-specific changes. That condition is not guaranteed here because universities choose how to revise. In particular, upward revisions start from substantially lower prior-document PCSI than downward revisions, so mean reversion, institutional heterogeneity, or different reasons for revising remain important concerns. Pre-revision paths and balance diagnostics are therefore treated as evidence about comparability, not as proof of exogeneity.
 
-The annual panel remains supporting evidence. We regress each outcome on PCSI measured zero to five years earlier with
-institution and year fixed effects and lagged log research expenditure, log licensing FTEs, and inventor royalty share,
-clustering by institution. Because most annual PCSI values are carried forward and revision timing is less precise in the
-annual representation, these regressions are not treated as the principal design.
+Standard errors are clustered by institution. Because the same institution can contribute observations to multiple stacks, the regression sample size counts stack-by-institution-by-year observations rather than unique institution-years. The effective variation in revision direction comes from the 34 treated revision events, including only eight upward revisions, not from the roughly twenty-six thousand stacked rows. We therefore complement clustered standard errors with direction-label permutation inference. Holding event dates, stacks, outcomes, and controls fixed, we repeatedly reassign which eight of the 34 events are labeled upward and recompute $\Delta_m$. The preferred results use 100,000 random assignments preserving the number of upward events. This procedure asks whether the observed direction contrast is unusual under an exchangeability assumption for the event labels. Because direction was not randomly assigned, that exchangeability assumption is substantive rather than design-based.
+
+For each outcome we also report a joint test of the three pre-revision direction coefficients, leave-one-event-out diagnostics for licensing, and estimates from the stricter 29-event sample. Benjamini--Hochberg $q$-values adjust the five principal outcome permutation tests as one family. These adjustments are important because the licensing result is the strongest of several outcomes rather than the only outcome examined.
+
+Finally, the annual panel remains supporting evidence rather than the principal design. We regress each outcome on contemporaneous and lagged PCSI with institution and year fixed effects and lagged log research expenditure, log licensing FTEs, and inventor royalty share, clustering by institution. Because most annual PCSI observations are carried forward from older documents and revision timing is less precise in that representation, the annual regressions answer a broader associational question and are interpreted separately from the documentary event study.
