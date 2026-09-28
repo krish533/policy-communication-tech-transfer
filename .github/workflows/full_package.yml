@@ -1,0 +1,88 @@
+name: Build full replication package
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install scipy
+
+      - name: Export explicit stacked datasets
+        run: python code/export_final_stacked_datasets.py
+
+      - name: Verify core package files
+        run: |
+          test -f data/verified_replication_dataset.csv
+          test -f data/merged_autm.csv
+          test -f data/revision_codes_manual.csv
+          test -f data/revision_codes_rereview37.csv
+          test -f data/derived/final_stacked_event_dataset_expanded34.csv
+          test -f data/derived/final_stacked_event_dataset_strict29.csv
+          test -f manuscript/main.tex
+          test -f code/final_expanded_inference.py
+          python - <<'PY'
+          import pandas as pd
+          e34 = pd.read_csv('data/derived/final_stacked_event_dataset_expanded34.csv', low_memory=False)
+          e29 = pd.read_csv('data/derived/final_stacked_event_dataset_strict29.csv', low_memory=False)
+          assert e34['stack'].nunique() == 34
+          assert e29['stack'].nunique() == 29
+          assert set(e34['event_direction_meta'].dropna()) == {'up','down'}
+          print('expanded34 rows:', len(e34))
+          print('strict29 rows:', len(e29))
+          PY
+
+      - name: Stage full package
+        run: |
+          rm -rf full_package
+          mkdir -p full_package
+          cp README.md requirements.txt full_package/
+          cp -R code data results replication manuscript .github full_package/
+          cat > full_package/FULL_PACKAGE_README.md <<'EOF'
+          # Full replication and submission package
+
+          This artifact is the complete working package for the expanded 34-event version of
+          *When Universities Rewrite Their Intellectual-Property Policies: Policy Revisions,
+          Policy Communication, and University Technology Transfer*.
+
+          It includes:
+          - the 3,507-row verified analysis-ready university-year panel;
+          - the frozen merged AUTM input;
+          - all documentary revision coding files;
+          - explicit row-level stacked datasets for the preferred 34-event and strict 29-event designs;
+          - all analysis and replication code;
+          - manuscript LaTeX source and figures present in the repository;
+          - generated result tables and audit files;
+          - replication documentation and GitHub Actions workflows.
+
+          The preferred stacked dataset contains repeated comparison university-years across event
+          stacks by design. The independent policy-event count is 34 (8 upward, 26 downward), not
+          the raw number of stacked rows.
+
+          Before journal submission, the nine second-pass documentary classifications should receive
+          blinded independent human/coauthor verification, as documented in the manuscript and repo.
+          EOF
+          find full_package -type f | sort > full_package/PACKAGE_MANIFEST.txt
+
+      - name: Upload full package
+        uses: actions/upload-artifact@v4
+        with:
+          name: full-replication-submission-package
+          path: full_package/
+          if-no-files-found: error
+          retention-days: 90
