@@ -1,17 +1,19 @@
-"""Expanded hand-reviewed revision samples after documentary re-review.
+"""Shared construction and exploratory inference for the expanded documentary samples.
 
-This script does not replace the September 25 25-event baseline. It asks what happens
-when the 37 mechanically eligible non-main revisions are manually reviewed using the
-same C/P/N comparability and A/B/C timing rules as the manuscript.
+The revised manuscript treats the 34-event hand-reviewed documentary sample as the
+preferred specification. It combines the frozen September 25 25-event benchmark with
+nine additional revisions that pass the same C/P/N comparability and A/B/C timing
+review rules. The 25-event design remains a frozen benchmark/sensitivity for provenance.
 
 Samples:
-  * expanded34: existing 25 + all 9 newly reviewed C/P & A/B pairs.
+  * expanded34: existing 25 + all 9 newly reviewed C/P & A/B pairs; preferred sample.
   * strict29: apply a uniform sensitivity requiring at least two observed treated
     institution panel years in event times 0..+5 to the combined hand-reviewed set.
-    This drops one existing baseline event and five of the nine additions, leaving 29.
+    This drops one existing benchmark event and five of the nine additions, leaving 29.
 
-For larger samples, inference follows the manuscript's alternative-sample convention:
-20,000 random direction assignments preserving the number of upward revisions.
+This module defaults to 20,000 random direction assignments for development runs.
+Publication-facing inference is executed by final_expanded_inference.py with 100,000
+assignments preserving the number of upward revisions.
 """
 from __future__ import annotations
 
@@ -179,17 +181,20 @@ def main():
     out.to_csv(RESULTS / "expanded_manual_sample_results.csv", index=False)
 
     summary = {
+        "permutation_draws": 20000,
+        "analysis_mode": "development",
         "expanded34": {
+            "definition": "preferred revised-manuscript documentary sample; frozen 25-event benchmark plus 9 independently re-reviewed usable additions",
             "events": 34, "up": 8, "down": 26,
             "new_events": 9,
             "results": r34.to_dict(orient="records"),
         },
         "strict29": {
-            "definition": "uniformly requires >=2 treated core-outcome panel years in t=0..+5",
+            "definition": "sensitivity uniformly requiring >=2 treated core-outcome panel years in t=0..+5",
             "events": 29, "up": 7, "down": 22,
             "results": r29.to_dict(orient="records"),
         },
-        "note": "Both are sensitivity samples. The September 25 25-event sample remains the frozen baseline."
+        "note": "This development entry point uses 20,000 assignments. Run final_expanded_inference.py for the publication-facing 100,000-assignment estimates. The September 25 25-event design remains a frozen benchmark/sensitivity."
     }
     (RESULTS / "expanded_manual_sample_summary.json").write_text(
         json.dumps(summary, indent=2, default=str) + "\n"
