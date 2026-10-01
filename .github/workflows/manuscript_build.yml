@@ -5,10 +5,12 @@ on:
     branches: [main, sept25-revision-baseline]
     paths:
       - 'manuscript/**'
+      - 'code/reproduce_submission.py'
       - 'code/final_expanded_inference.py'
       - 'code/expanded34_diagnostics.py'
       - 'code/build_expanded_manuscript_figures.py'
       - 'code/expanded_manual_revision_analysis.py'
+      - 'code/export_final_stacked_datasets.py'
       - 'data/revision_codes_rereview37.csv'
       - 'requirements.txt'
       - '.github/workflows/manuscript_build.yml'
@@ -16,10 +18,12 @@ on:
     branches: [main]
     paths:
       - 'manuscript/**'
+      - 'code/reproduce_submission.py'
       - 'code/final_expanded_inference.py'
       - 'code/expanded34_diagnostics.py'
       - 'code/build_expanded_manuscript_figures.py'
       - 'code/expanded_manual_revision_analysis.py'
+      - 'code/export_final_stacked_datasets.py'
       - 'data/revision_codes_rereview37.csv'
       - 'requirements.txt'
       - '.github/workflows/manuscript_build.yml'
@@ -42,11 +46,8 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Rebuild expanded manuscript results
-        run: |
-          python code/final_expanded_inference.py
-          python code/expanded34_diagnostics.py
-          python code/build_expanded_manuscript_figures.py
+      - name: Rebuild publication-facing results, diagnostics, figures, and stacked datasets
+        run: python code/reproduce_submission.py
 
       - name: Compile LaTeX manuscript
         uses: xu-cheng/latex-action@v3
@@ -74,4 +75,6 @@ jobs:
             results/expanded34_stack_composition.csv
             results/expanded34_leave_one_out.csv
             results/expanded_event_time_paths.csv
+            data/derived/final_stacked_event_dataset_expanded34.csv
+            data/derived/final_stacked_event_dataset_strict29.csv
           if-no-files-found: error
