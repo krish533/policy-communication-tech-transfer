@@ -1,0 +1,106 @@
+name: Build full replication package
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install pinned dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Rebuild publication-facing results and datasets
+        run: python code/reproduce_submission.py
+
+      - name: Verify core package files
+        run: |
+          test -f data/verified_replication_dataset.csv
+          test -f data/merged_autm.csv
+          test -f data/revision_codes_manual.csv
+          test -f data/revision_codes_rereview37.csv
+          test -f data/derived/final_stacked_event_dataset_expanded34.csv
+          test -f data/derived/final_stacked_event_dataset_strict29.csv
+          test -f results/expanded_manual_sample_results.csv
+          test -f results/expanded34_event_list.csv
+          test -f results/strict29_event_list.csv
+          test -f manuscript/main.tex
+          test -f code/reproduce_submission.py
+          python - <<'PY'
+          import pandas as pd
+          e34 = pd.read_csv('data/derived/final_stacked_event_dataset_expanded34.csv', low_memory=False)
+          e29 = pd.read_csv('data/derived/final_stacked_event_dataset_strict29.csv', low_memory=False)
+          r = pd.read_csv('results/expanded_manual_sample_results.csv')
+          assert e34['stack'].nunique() == 34
+          assert e29['stack'].nunique() == 29
+          assert set(e34['event_direction_meta'].dropna()) == {'up','down'}
+          assert set(r['sample']) == {'expanded34','strict29'}
+          assert r.groupby('sample')['events'].first().to_dict() == {'expanded34': 34, 'strict29': 29}
+          print('expanded34 rows:', len(e34))
+          print('strict29 rows:', len(e29))
+          print('publication result rows:', len(r))
+          PY
+
+      - name: Stage full package
+        run: |
+          set -euo pipefail
+          rm -rf full_package
+          mkdir -p full_package
+          cp README.md REPRODUCIBILITY.md requirements.txt full_package/
+          cp -R code data results replication manuscript .github full_package/
+          python --version > full_package/PYTHON_VERSION.txt
+          python -m pip freeze | sort > full_package/PIP_FREEZE.txt
+          cat > full_package/FULL_PACKAGE_README.md <<'EOF'
+          # Full replication and submission package
+
+          This artifact is the complete working package for the expanded 34-event version of
+          *When Universities Rewrite Their Intellectual-Property Policies: Policy Revisions,
+          Policy Communication, and University Technology Transfer*.
+
+          It includes:
+          - the verified cross-repository university-year reference panel;
+          - the frozen merged AUTM input used by the event-study code;
+          - all documentary revision coding files;
+          - explicit row-level stacked datasets for the preferred 34-event and strict 29-event designs;
+          - all analysis and replication code;
+          - manuscript LaTeX source and generated figures present in the repository;
+          - regenerated result tables and audit files;
+          - the pinned requirements file plus the exact CI Python version and installed-package freeze;
+          - replication documentation and GitHub Actions workflows.
+
+          The preferred stacked dataset contains repeated comparison university-years across event
+          stacks by design. The independent policy-event count is 34 (8 upward, 26 downward), not
+          the raw number of stacked rows. The strict support sensitivity contains 29 events
+          (7 upward, 22 downward).
+
+          The publication-facing inference is regenerated before this artifact is staged and uses
+          100,000 direction-label assignments per outcome.
+
+          Human verification of documentary classifications and journal disclosure fields remains a
+          separate pre-submission responsibility; automated reproducibility checks do not substitute
+          for that review.
+          EOF
+          find full_package -type f ! -name 'PACKAGE_MANIFEST.txt' ! -name 'PACKAGE_SHA256SUMS.txt' | sort > full_package/PACKAGE_MANIFEST.txt
+          (cd full_package && find . -type f ! -name 'PACKAGE_SHA256SUMS.txt' -print0 | sort -z | xargs -0 sha256sum > PACKAGE_SHA256SUMS.txt)
+
+      - name: Upload full package
+        uses: actions/upload-artifact@v4
+        with:
+          name: full-replication-submission-package
+          path: full_package/
+          if-no-files-found: error
+          retention-days: 90

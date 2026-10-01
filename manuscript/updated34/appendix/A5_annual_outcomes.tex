@@ -1,0 +1,85 @@
+\section{Supporting annual-panel and outcome audits}\label{app:annual}
+
+\begin{table}[htbp]\centering
+\caption{Continuous PCSI: filing-margin robustness, placebo, and falsification}\label{tab:twferobust}
+\begin{threeparttable}\footnotesize
+\begin{tabular}{lrrrr}\toprule
+Specification & $\hat\beta$ & SE & $p$ & $N$ \\\midrule
+Baseline, lag 1 & 0.939 & (0.505) & 0.065 & 2,271 \\
+Winsorized 1st/99th percentiles & 1.150 & (0.591) & 0.054 & 2,271 \\
+Institutions observed at least 15 years & 0.951 & (0.559) & 0.092 & 2,180 \\
+R1 universities only & 1.153 & (0.623) & 0.067 & 2,010 \\
+Lag 2 PCSI & 1.201 & (0.520) & 0.023 & 2,132 \\
+Falsification: future ln research expenditure & 0.251 & (0.201) & 0.213 & 2,067 \\
+Circular-shift placebo $p$ (filing margin, 1,000 shifts) &  &  & 0.017 &  \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]\footnotesize
+\item \textit{Notes:} Dependent variable is the filing margin except in the falsification row. ``R1 universities'' uses the Carnegie R1 indicator carried in the merged institution data. The falsification outcome is log research expenditure in year $t+1$. The circular-shift placebo rotates each institution's PCSI series by a random offset and reports the share of 1,000 rotations with a coefficient at least as large in absolute value as the observed lag-one coefficient.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\caption{Does recent performance predict policy revisions?}\label{tab:predictors}
+\begin{threeparttable}\footnotesize
+\begin{tabular}{lrrrr}\toprule
+Lagged predictor (year $t-1$) & $\hat\beta$ & SE & $p$ & $N$ \\\midrule
+Log new patent applications & 0.0044 & (0.0055) & 0.426 & 3,195 \\
+Log invention disclosures & -0.0071 & (0.0075) & 0.346 & 3,195 \\
+Log licenses and options & -0.0001 & (0.0043) & 0.990 & 3,181 \\
+Filing margin & 0.0079 & (0.0056) & 0.156 & 3,195 \\
+Log research expenditure & 0.0148 & (0.0099) & 0.137 & 3,195 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]\footnotesize
+\item \textit{Notes:} Linear probability models of an indicator for a revision in year $t$ on one lagged predictor at a time, with institution and year fixed effects and institution-clustered standard errors.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\section{Outcome audits and supplementary outcomes}\label{app:startups}
+
+\begin{table}[htbp]\centering
+\caption{Licenses and options executed: the FY2023 field change}\label{tab:licfield}
+\begin{threeparttable}\footnotesize
+\begin{tabular}{rrrr}\toprule
+Year & Total = licenses + options & Median total field & Median licenses + options \\\midrule
+2016 & 1.000 & 32 & 32 \\
+2017 & 1.000 & 35 & 35 \\
+2018 & 0.991 & 36 & 38 \\
+2019 & 0.990 & 44 & 45 \\
+2020 & 0.981 & 35 & 36 \\
+2021 & 0.968 & 46 & 46 \\
+2022 & 1.000 & 34 & 34 \\
+2023 & 0.009 & 6 & 29 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]\footnotesize
+\item \textit{Notes:} Share of institution-year records in which the survey's total licenses-and-options field equals licenses issued plus options issued, and the two medians. The analysis uses licenses issued plus options issued for 2023.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\caption{Startup series: reporting audit}\label{tab:startups}
+\begin{threeparttable}\footnotesize
+\begin{tabular}{lrrrrr}\toprule
+Year & Reported & Zero share & Median & Entering & Exiting \\\midrule
+1994 & 0.99 & 0.44 & 1.0 &  &  \\
+1995 & 1.00 & 0.38 & 1.0 & 13 & 6 \\
+2000 & 1.00 & 0.33 & 1.0 & 7 & 5 \\
+2005 & 0.98 & 0.20 & 2.0 & 4 & 8 \\
+2010 & 0.97 & 0.16 & 3.0 & 5 & 6 \\
+2015 & 0.96 & 0.08 & 5.0 & 7 & 5 \\
+2020 & 1.00 & 0.06 & 5.0 & 9 & 5 \\
+2021 & 1.00 & 0.05 & 5.0 & 5 & 14 \\
+2022 & 0.99 & 0.09 & 4.5 & 11 & 6 \\
+2023 & 1.00 & 0.17 & 4.0 & 11 & 4 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]\footnotesize
+\item \textit{Notes:} Reporting diagnostics are unchanged from the September-25 audit. Because startup coverage and reporting behavior differ from the five principal outcomes, the series is not promoted to the expanded event-study headline results.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
