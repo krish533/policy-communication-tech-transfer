@@ -25,11 +25,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Rebuild publication-facing results and datasets
-        run: |
-          python code/final_expanded_inference.py
-          python code/expanded34_diagnostics.py
-          python code/build_expanded_manuscript_figures.py
-          python code/export_final_stacked_datasets.py
+        run: python code/reproduce_submission.py
 
       - name: Verify core package files
         run: |
@@ -43,7 +39,7 @@ jobs:
           test -f results/expanded34_event_list.csv
           test -f results/strict29_event_list.csv
           test -f manuscript/main.tex
-          test -f code/final_expanded_inference.py
+          test -f code/reproduce_submission.py
           python - <<'PY'
           import pandas as pd
           e34 = pd.read_csv('data/derived/final_stacked_event_dataset_expanded34.csv', low_memory=False)
@@ -53,7 +49,7 @@ jobs:
           assert e29['stack'].nunique() == 29
           assert set(e34['event_direction_meta'].dropna()) == {'up','down'}
           assert set(r['sample']) == {'expanded34','strict29'}
-          assert set(r.groupby('sample')['events'].first().to_dict().items()) == {('expanded34', 34), ('strict29', 29)}
+          assert r.groupby('sample')['events'].first().to_dict() == {'expanded34': 34, 'strict29': 29}
           print('expanded34 rows:', len(e34))
           print('strict29 rows:', len(e29))
           print('publication result rows:', len(r))
@@ -64,7 +60,7 @@ jobs:
           set -euo pipefail
           rm -rf full_package
           mkdir -p full_package
-          cp README.md requirements.txt full_package/
+          cp README.md REPRODUCIBILITY.md requirements.txt full_package/
           cp -R code data results replication manuscript .github full_package/
           python --version > full_package/PYTHON_VERSION.txt
           python -m pip freeze | sort > full_package/PIP_FREEZE.txt
