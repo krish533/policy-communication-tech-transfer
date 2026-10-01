@@ -2,7 +2,7 @@ name: Build expanded manuscript
 
 on:
   push:
-    branches: [sept25-revision-baseline]
+    branches: [main, sept25-revision-baseline]
     paths:
       - 'manuscript/**'
       - 'code/final_expanded_inference.py'
@@ -10,6 +10,18 @@ on:
       - 'code/build_expanded_manuscript_figures.py'
       - 'code/expanded_manual_revision_analysis.py'
       - 'data/revision_codes_rereview37.csv'
+      - 'requirements.txt'
+      - '.github/workflows/manuscript_build.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'manuscript/**'
+      - 'code/final_expanded_inference.py'
+      - 'code/expanded34_diagnostics.py'
+      - 'code/build_expanded_manuscript_figures.py'
+      - 'code/expanded_manual_revision_analysis.py'
+      - 'data/revision_codes_rereview37.csv'
+      - 'requirements.txt'
       - '.github/workflows/manuscript_build.yml'
   workflow_dispatch:
 
@@ -25,10 +37,10 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install analysis and plotting dependencies
+      - name: Install pinned analysis and plotting dependencies
         run: |
+          python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip install matplotlib
 
       - name: Rebuild expanded manuscript results
         run: |
