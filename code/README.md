@@ -2,9 +2,13 @@
 
 The repository keeps the publication-facing expanded documentary design separate from the frozen September 25 benchmark and the earlier annual-panel replication.
 
+## One-command publication replication
+
+Run `python code/reproduce_submission.py` from the repository root after installing the pinned root `requirements.txt`. This is the canonical submission runner used by CI. It rebuilds publication-facing inference, diagnostics, manuscript figures, and explicit stacked datasets in the required order.
+
 ## Publication-facing expanded design
 
-Run these scripts in this order for the revised manuscript:
+The runner executes:
 
 1. `final_expanded_inference.py` — canonical publication-facing inference for the preferred 34-event documentary sample and the strict 29-event support sensitivity. It uses 100,000 direction-label assignments per outcome and rewrites the publication-facing expanded result files.
 2. `expanded34_diagnostics.py` — balance, stack-composition, pre-trend, and leave-one-event-out diagnostics used by the revised manuscript.
