@@ -1,6 +1,8 @@
 name: Build full replication package
 
 on:
+  push:
+    branches: [main]
   pull_request:
     branches: [main]
   workflow_dispatch:
@@ -17,14 +19,17 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install dependencies
+      - name: Install pinned dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip install scipy
 
-      - name: Export explicit stacked datasets
-        run: python code/export_final_stacked_datasets.py
+      - name: Rebuild publication-facing results and datasets
+        run: |
+          python code/final_expanded_inference.py
+          python code/expanded34_diagnostics.py
+          python code/build_expanded_manuscript_figures.py
+          python code/export_final_stacked_datasets.py
 
       - name: Verify core package files
         run: |
@@ -34,25 +39,35 @@ jobs:
           test -f data/revision_codes_rereview37.csv
           test -f data/derived/final_stacked_event_dataset_expanded34.csv
           test -f data/derived/final_stacked_event_dataset_strict29.csv
+          test -f results/expanded_manual_sample_results.csv
+          test -f results/expanded34_event_list.csv
+          test -f results/strict29_event_list.csv
           test -f manuscript/main.tex
           test -f code/final_expanded_inference.py
           python - <<'PY'
           import pandas as pd
           e34 = pd.read_csv('data/derived/final_stacked_event_dataset_expanded34.csv', low_memory=False)
           e29 = pd.read_csv('data/derived/final_stacked_event_dataset_strict29.csv', low_memory=False)
+          r = pd.read_csv('results/expanded_manual_sample_results.csv')
           assert e34['stack'].nunique() == 34
           assert e29['stack'].nunique() == 29
           assert set(e34['event_direction_meta'].dropna()) == {'up','down'}
+          assert set(r['sample']) == {'expanded34','strict29'}
+          assert set(r.groupby('sample')['events'].first().to_dict().items()) == {('expanded34', 34), ('strict29', 29)}
           print('expanded34 rows:', len(e34))
           print('strict29 rows:', len(e29))
+          print('publication result rows:', len(r))
           PY
 
       - name: Stage full package
         run: |
+          set -euo pipefail
           rm -rf full_package
           mkdir -p full_package
           cp README.md requirements.txt full_package/
           cp -R code data results replication manuscript .github full_package/
+          python --version > full_package/PYTHON_VERSION.txt
+          python -m pip freeze | sort > full_package/PIP_FREEZE.txt
           cat > full_package/FULL_PACKAGE_README.md <<'EOF'
           # Full replication and submission package
 
@@ -61,23 +76,30 @@ jobs:
           Policy Communication, and University Technology Transfer*.
 
           It includes:
-          - the 3,507-row verified analysis-ready university-year panel;
-          - the frozen merged AUTM input;
+          - the verified cross-repository university-year reference panel;
+          - the frozen merged AUTM input used by the event-study code;
           - all documentary revision coding files;
           - explicit row-level stacked datasets for the preferred 34-event and strict 29-event designs;
           - all analysis and replication code;
-          - manuscript LaTeX source and figures present in the repository;
-          - generated result tables and audit files;
+          - manuscript LaTeX source and generated figures present in the repository;
+          - regenerated result tables and audit files;
+          - the pinned requirements file plus the exact CI Python version and installed-package freeze;
           - replication documentation and GitHub Actions workflows.
 
           The preferred stacked dataset contains repeated comparison university-years across event
           stacks by design. The independent policy-event count is 34 (8 upward, 26 downward), not
-          the raw number of stacked rows.
+          the raw number of stacked rows. The strict support sensitivity contains 29 events
+          (7 upward, 22 downward).
 
-          Before journal submission, the nine second-pass documentary classifications should receive
-          blinded independent human/coauthor verification, as documented in the manuscript and repo.
+          The publication-facing inference is regenerated before this artifact is staged and uses
+          100,000 direction-label assignments per outcome.
+
+          Human verification of documentary classifications and journal disclosure fields remains a
+          separate pre-submission responsibility; automated reproducibility checks do not substitute
+          for that review.
           EOF
-          find full_package -type f | sort > full_package/PACKAGE_MANIFEST.txt
+          find full_package -type f ! -name 'PACKAGE_MANIFEST.txt' ! -name 'PACKAGE_SHA256SUMS.txt' | sort > full_package/PACKAGE_MANIFEST.txt
+          (cd full_package && find . -type f ! -name 'PACKAGE_SHA256SUMS.txt' -print0 | sort -z | xargs -0 sha256sum > PACKAGE_SHA256SUMS.txt)
 
       - name: Upload full package
         uses: actions/upload-artifact@v4
